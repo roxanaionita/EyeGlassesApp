@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="frameWithImages"
+            type="com.example.eyeglassesapp.FrameWithImages" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp"
+        android:layout_marginTop="16dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/frameImageView"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:contentDescription="Frame image"
+                app:imageUrl="@{frameWithImages.images.size() > 0 ? frameWithImages.images.get(0).imageUri : null}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/frameBrandTextView"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@{frameWithImages.frame.brand}"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@id/frameImageView"
+                app:layout_constraintTop_toTopOf="@id/frameImageView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/frameModelTextView"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{frameWithImages.frame.model}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/frameBrandTextView"
+                app:layout_constraintTop_toBottomOf="@id/frameBrandTextView" />
+
+            <TextView
+                android:id="@+id/framePriceTextView"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text='@{"$ " + frameWithImages.frame.price}'
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/frameModelTextView"
+                app:layout_constraintTop_toBottomOf="@id/frameModelTextView" />
+
+            <TextView
+                android:id="@+id/frameDescriptionTextView"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="@{frameWithImages.frame.description}"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="@id/framePriceTextView"
+                app:layout_constraintTop_toBottomOf="@id/framePriceTextView" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</layout>

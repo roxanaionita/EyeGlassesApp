@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp">
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:src="@drawable/baseline_arrow_back"
+        android:contentDescription="@string/back_button_description"/>
+
+    <TextView
+        android:id="@+id/welcomeBackText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/backButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:text="Welcome back! Glad to see you, Again!"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textColor="@android:color/black" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeBackText"
+        android:layout_marginTop="32dp"
+        app:hintEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your email"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/passwordTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/emailTextInputLayout"
+        android:layout_marginTop="16dp"
+        app:hintEnabled="false"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/login_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your password"
+            android:inputType="textPassword" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/forgotPasswordText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/passwordTextInputLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="8dp"
+        android:text="Forgot Password?"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@id/forgotPasswordText"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@android:color/black"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/separationLine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_below="@id/loginButton"
+        android:layout_marginBottom="24dp">
+
+        <View
+            android:id="@+id/lineLeft"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_toStartOf="@+id/orLoginUsing"
+            android:layout_toLeftOf="@+id/orLoginUsing"
+            android:background="@android:color/darker_gray"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp" />
+
+        <TextView
+            android:id="@+id/orLoginUsing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Or LogIn Using"
+            android:layout_centerInParent="true" />
+
+        <View
+            android:id="@+id/lineRight"
+            android:layout_width="100dp"
+            android:layout_height="1dp"
+            android:layout_toEndOf="@+id/orLoginUsing"
+            android:layout_toRightOf="@+id/orLoginUsing"
+            android:background="@android:color/darker_gray"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/socialLoginContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/separationLine"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/facebookLoginButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#BBB8B8"
+            android:contentDescription="@string/facebook_login_button_description"
+            android:drawableTop="@drawable/facebook_ic"
+            android:padding="5dp" />
+
+        <Button
+            android:id="@+id/googleLoginButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#BBB8B8"
+            android:contentDescription="@string/google_login_button_description"
+            android:drawableTop="@drawable/google_ic"
+            android:padding="5dp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/signup_redirect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="15dp"
+        android:text="Don't have an account? Register Now"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+</RelativeLayout>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">EyeGlassesApp</string>
+    <string name="facebook_login_button_description">Login with Facebook</string>
+    <string name="google_login_button_description">Login with Google</string>
+    <string name="back_button_description">Go back</string>
+    <string name="default_web_client_id">683017060259-hco8re82jfc8mm6j0ma45ocei75b9c5l.apps.googleusercontent.com</string>
+</resources>

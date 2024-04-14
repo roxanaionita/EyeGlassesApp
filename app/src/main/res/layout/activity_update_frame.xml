@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:padding="10dp">
+
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:src="@drawable/baseline_arrow_back"
+            android:contentDescription="@string/back_button_description"/>
+
+        <TextView
+            android:id="@+id/new_frame_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/backButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Update Frame Page"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textColor="@android:color/black" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/brandTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_frame_form"
+            android:layout_marginTop="30dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_brand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Brand"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/modelTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/brandTextInputLayout"
+            android:layout_marginTop="16dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_model"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Model"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/colorTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/modelTextInputLayout"
+            android:layout_marginTop="16dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Color"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/colorTextInputLayout"
+            android:layout_marginTop="16dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Description"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/priceTextInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionTextInputLayout"
+            android:layout_marginTop="16dp"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/form_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Price"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/genderText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/priceTextInputLayout"
+            android:layout_marginTop="16dp"
+            android:text="Select gender"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genderText"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="5dp">
+
+            <RadioButton
+                android:id="@+id/maleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male"
+                />
+
+            <RadioButton
+                android:id="@+id/femaleRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female"
+                android:layout_marginStart="16dp"/>
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/frameTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genderRadioGroup"
+            android:layout_marginTop="16dp"
+            android:text="Select frame type"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/frameTypeRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frameTypeText"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="5dp">
+
+            <RadioButton
+                android:id="@+id/fullRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Full"
+                />
+
+            <RadioButton
+                android:id="@+id/semiRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Semi"
+                android:layout_marginStart="16dp"/>
+
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/categoryTypeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/frameTypeRadioGroup"
+            android:layout_marginTop="16dp"
+            android:text="Select category"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/categoryRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/categoryTypeText"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="5dp">
+
+            <RadioButton
+                android:id="@+id/EyeGlassesRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eyeglasses"/>
+
+            <RadioButton
+                android:id="@+id/SunGlassesRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunglasses"
+                android:layout_marginStart="16dp"/>
+
+        </RadioGroup>
+
+
+        <TextView
+            android:id="@+id/materialText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/categoryRadioGroup"
+            android:layout_marginTop="16dp"
+            android:text="Select material"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"/>
+
+        <RadioGroup
+            android:id="@+id/materialRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/materialText"
+            android:orientation="horizontal"
+            android:layout_marginTop="0dp"
+            android:layout_marginLeft="5dp">
+
+            <RadioButton
+                android:id="@+id/PlasticRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Plastic"/>
+
+            <RadioButton
+                android:id="@+id/MetalRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Metal"
+                android:layout_marginStart="16dp"/>
+
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/frameCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confirm Selection"
+            android:layout_marginStart="150dp"
+            android:layout_below="@id/materialRadioGroup"/>
+
+        <ImageView
+            android:id="@+id/image1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/frameCheckBox"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/default_image_placeholder" /> <!-- Replace with actual image resource -->
+
+        <ImageView
+            android:id="@+id/image2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/frameCheckBox"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/image1"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/default_image_placeholder" /> <!-- Replace with actual image resource -->
+
+        <ImageView
+            android:id="@+id/image3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/frameCheckBox"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@id/image2"
+            android:layout_marginStart="4dp"
+            android:src="@drawable/default_image_placeholder" /> <!-- Replace with actual image resource -->
+
+        <Button
+            android:id="@+id/changePicturesButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/image3"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@android:color/black"
+            android:text="Change Pictures"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+        <Button
+            android:id="@+id/submitButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/changePicturesButton"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@android:color/black"
+            android:text="Submit changes"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+</ScrollView>

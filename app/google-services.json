@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "683017060259",
+    "project_id": "authglassesapp",
+    "storage_bucket": "authglassesapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683017060259:android:a1b99942e61177d0f06416",
+        "android_client_info": {
+          "package_name": "com.example.eyeglassesapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "683017060259-hco8re82jfc8mm6j0ma45ocei75b9c5l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eyeglassesapp",
+            "certificate_hash": "09f5a900c3f0e711fefa1523b31c117b8dea700f"
+          }
+        },
+        {
+          "client_id": "683017060259-v4dr8icht01562ijqmbs08ntnqm1gp48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnltfQvWLWvonK1AMbnTwFuenDdL08kS4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "683017060259-v4dr8icht01562ijqmbs08ntnqm1gp48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
