@@ -174,6 +174,9 @@ class UpdateFrameActivity : AppCompatActivity() {
             intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             startActivityForResult(intent, IMAGE_PICKER_REQUEST_CODE)
         }
+        binding.backButton.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

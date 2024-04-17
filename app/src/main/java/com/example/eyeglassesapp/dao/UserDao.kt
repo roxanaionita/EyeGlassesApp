@@ -1,10 +1,12 @@
 package com.example.eyeglassesapp.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import com.example.eyeglassesapp.entities.UserEntity
 
@@ -27,4 +29,12 @@ interface UserDao {
     // Query to find a user by their UID (from Firebase)
     @Query("SELECT * FROM users WHERE user_id = :userId")
     suspend fun getUserByUid(userId: Int): UserEntity?
+
+    // Query to retrieve all users from users table
+    @Query("SELECT * FROM users")
+    fun getAllUsers() : LiveData<List<UserEntity>>
+
+    @Transaction
+    @Query("DELETE FROM users WHERE user_id = :userId")
+    suspend fun deleteUserById(userId: Int)
 }

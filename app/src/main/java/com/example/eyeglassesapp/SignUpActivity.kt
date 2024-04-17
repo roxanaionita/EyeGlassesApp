@@ -90,6 +90,8 @@ class SignUpActivity : AppCompatActivity() {
                                 .addOnSuccessListener {
                                     // create new user entity object and inject into room db
                                     val newUser = UserEntity(
+                                        //rolul este by default de user, astfel adminul nu este stocat
+                                        //in Room Db
                                         firebaseUid = task.result?.user?.uid ?: "",
                                         username = username,
                                         email = email,

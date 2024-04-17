@@ -59,7 +59,7 @@ class LogInActivity : AppCompatActivity() {
                             .addOnSuccessListener { document ->
                                 val role = document.getString("role")
                                 val intent = if (role == "admin") {
-                                    Intent(this, Admin_FramesPage::class.java)
+                                    Intent(this, AdminDashboardActivity::class.java)
                                 } else {
                                     Intent(this, MainActivity::class.java)
                                 }
