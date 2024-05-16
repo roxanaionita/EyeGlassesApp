@@ -15,12 +15,18 @@ class OrderRepository(private val orderDao: OrderDao) {
         orderDao.deleteOrder(order)
     }
 
-    // Method to retrieve all orders for a specific user
     suspend fun getOrdersByUserId(userId: Int): List<OrderEntity> {
         return orderDao.getOrdersByUserId(userId)
     }
 
     suspend fun getAllOrders() : List<OrderEntity>{
         return orderDao.getAllOrders()
+    }
+
+    suspend fun getOrderById(orderId: Long): OrderEntity? {
+        return orderDao.getOrderById(orderId)
+    }
+    suspend fun getTotalOrderCount(): Int{
+        return orderDao.getTotalOrderCount()
     }
 }

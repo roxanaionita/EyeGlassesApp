@@ -24,16 +24,27 @@
                 android:layout_height="50dp"
                 android:src="@drawable/baseline_admin_panel_settings_24"
                 android:padding="8dp"
-                android:layout_marginEnd="10dp"
+                android:scaleType="centerCrop"
                 android:layout_marginStart="20dp"
-                android:scaleType="centerCrop" />
+                android:layout_marginEnd="22dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Admin Dashboard"
-                android:layout_marginLeft="35dp"
+                android:textAlignment="center"
+                android:textSize="26sp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <ImageView
+                android:id="@+id/logout_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/baseline_logout_24"
+                android:padding="10dp"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"/>
 
         </LinearLayout>
         <LinearLayout
@@ -95,19 +106,23 @@
                         android:layout_height="90dp"
                         android:orientation="vertical"
                         android:padding="16dp"
+                        android:gravity="center"
                         >
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Total Users"
-                            android:textSize="14sp" />
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/total_users"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="7"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
+                            android:layout_marginTop="5dp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -125,20 +140,24 @@
                         android:layout_width="130dp"
                         android:layout_height="90dp"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Total Orders"
-                            android:textSize="14sp" />
+                            android:textSize="16sp" />
 
                         <TextView
+                            android:id="@+id/total_orders"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="10"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
+                            android:textSize="20sp"
+                            android:textStyle="bold"
+                            android:layout_marginTop="5dp"
+                            />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
@@ -155,19 +174,22 @@
                         android:layout_width="130dp"
                         android:layout_height="90dp"
                         android:orientation="vertical"
-                        android:padding="16dp">
+                        android:padding="16dp"
+                        android:gravity="center">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Total Products"
-                            android:textSize="14sp"/>
+                            android:text="Total Frames"
+                            android:textSize="16sp"/>
 
                         <TextView
+                            android:id="@+id/total_frames"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="30"
-                            android:textSize="18sp"
+                            android:textSize="20sp"
+                            android:layout_marginTop="5dp"
                             android:textStyle="bold"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -176,28 +198,18 @@
             </LinearLayout>
         </HorizontalScrollView>
 
-
-
-        <ImageView
-            android:id="@+id/pie_chart_image"
+        <!-- PieChart -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart_1"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/piechart1"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="20dp"
-             />
+            android:layout_height="300dp"
+            android:layout_marginTop="30dp" />
 
-        <!-- Placeholder for Progress Chart Image -->
-        <ImageView
-            android:id="@+id/progress_chart_image"
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pie_chart_2"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/piechart2"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="0dp"
-             />
-
-        <!-- ... other views if necessary ... -->
-
+            android:layout_height="300dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="80dp"/>
     </LinearLayout>
 </ScrollView>

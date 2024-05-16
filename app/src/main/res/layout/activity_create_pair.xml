@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreatePairActivity"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/baseline_arrow_back" />
+
+                <ImageView
+                    android:id="@+id/cart_redirect_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0"
+                    app:srcCompat="@drawable/baseline_shopping_cart_24" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="290dp"
+                android:layout_margin="16dp"
+                android:padding="16dp"
+                android:background="@color/babyblue"/>
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/dot_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:visibility="gone"
+                app:dotsColor="@color/babyblue"
+                app:dotsCornerRadius="8dp"
+                app:dotsSize="6dp"
+                app:dotsSpacing="2dp"
+                app:dotsWidthFactor="2.5"
+                app:selectedDotColor="@color/black"
+                tools:visibility = "visible"
+                android:layout_gravity="center"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/otherImagesRecyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:clipToPadding="false"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/product_brand"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Brand"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"/>
+
+                <TextView
+                    android:id="@+id/product_Price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Price"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"/>
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Characteristics"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="5dp"
+                        />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Model" />
+
+
+                    <TextView
+                        android:id="@+id/product_model"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/textView27"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Colour" />
+
+                    <TextView
+                        android:id="@+id/product_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Gender" />
+
+                    <TextView
+                        android:id="@+id/product_gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Category" />
+
+                    <TextView
+                        android:id="@+id/product_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/textView20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Material" />
+
+                    <TextView
+                        android:id="@+id/product_material"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/textView30"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Description" />
+
+                    <TextView
+                        android:id="@+id/product_Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </TableRow>
+            </TableLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chose lens type"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <Button
+                        android:id="@+id/oftalmic_lens"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Oftalmic"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginRight="5dp"/>
+
+                    <Button
+                        android:id="@+id/polarized_lens"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Polarized"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"/>
+
+                    <Button
+                        android:id="@+id/antireflex_lens"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Antireflex"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/info_lentile_standard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Oftalmic standard lenses - commonly used in eyeglasses for correcting vision, suitable for everyday use."
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/info_lentile_polarizate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Polarized lenses - designed to reduce glare from reflective surfaces, providing enhanced visual comfort"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/info_lentile_antiref"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Anti-reflective coated lenses - minimize reflections and glare and reducing eye strain, especially for artificial lighting or screens."
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/alegere_material"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chose lens material"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <Button
+                        android:id="@+id/plastic_lens"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Plastic"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginRight="5dp"/>
+
+                    <Button
+                        android:id="@+id/glass_lens"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Mineral glass"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/info_material_plastic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Plastic lenses are lightweight and durable, making them a popular choice for eyewear due to their comfort and impact resistance."
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/info_material_sticla"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mineral glass lenses offer exceptional optical clarity and scratch resistance, making them a premium choice for eyewear."
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/alegere_filtruPc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PC filter"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <Button
+                        android:id="@+id/pc_filter"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Yes"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginRight="5dp"/>
+
+                    <Button
+                        android:id="@+id/no_pc_filter"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="No"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/info_pc_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="PC filter lenses help reduce exposure to harmful blue light emitted from screens, promoting eye comfort"
+                    android:layout_marginTop="5dp"
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="16dp">
+
+                <TextView
+                    android:id="@+id/alegere_filtruUv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="UV filter"
+                    android:layout_gravity="center"
+                    android:textSize="20sp"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="5dp">
+
+                    <Button
+                        android:id="@+id/uv_filter"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="Yes"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginRight="5dp"/>
+
+                    <Button
+                        android:id="@+id/no_uv_filter"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_weight="1"
+                        android:text="No"
+                        android:textColor="@android:color/white"
+                        android:backgroundTint="@color/babyblue"
+                        android:gravity="center"
+                        android:layout_marginLeft="5dp"/>
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/info_uv_filter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="UV filter lenses block harmful ultraviolet (UV) rays, offering eye protection against sun damage and related risks."
+                    android:textSize="15sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="16dp"
+                android:id="@+id/lens_total">
+
+                <TextView
+                    android:id="@+id/lens_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lens price:"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:layout_marginLeft="180dp"/>
+
+                <TextView
+                    android:id="@+id/lens_price_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$0"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:layout_marginRight="20dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Linia pentru Right Diopter -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Right Diopter:"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerRightDiopter"
+                        android:layout_width="120dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+                <!-- Linia pentru Left Diopter -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Left Diopter:"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginStart="8dp"/>
+
+                    <Spinner
+                        android:id="@+id/spinnerLeftDiopter"
+                        android:layout_width="120dp"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="8dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="16dp"
+                android:id="@+id/total">
+
+                <TextView
+                    android:id="@+id/total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total price:"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="23sp"
+                    android:layout_marginLeft="180dp"/>
+
+                <TextView
+                    android:id="@+id/price_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$0"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:layout_marginRight="20dp"/>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/add_to_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add to cart"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="16dp"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

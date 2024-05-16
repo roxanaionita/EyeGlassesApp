@@ -58,7 +58,6 @@ class NewFrameForm : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityNewFrameFormBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // ViewModel initialization
 
         database = AppDatabase.getDatabase(applicationContext)
 
@@ -68,8 +67,6 @@ class NewFrameForm : AppCompatActivity() {
         imageRepository = ImageRepository(imageDao)
 
         frameViewModel.insertedFrameId.observe(this) { frameId ->
-            // Use the frameId here, for example, to save image URIs with this frame ID
-            // This will ensure we have the correct frame ID when saving images
             currentFrameId = frameId
         }
 
@@ -134,13 +131,13 @@ class NewFrameForm : AppCompatActivity() {
 
     }
     private val pickMultipleImagesLauncher = registerForActivityResult(ActivityResultContracts.GetMultipleContents()) { uris: List<Uri> ->
-        // Handle a list of image URIs here
+        // For selecting multiple pictures
         uris.forEach { uri ->
             saveImageUri(uri)
         }
     }
     private fun saveImageUri(uri: Uri) {
-        // Use the currentFrameId set from observing the ViewModel
+        // current frame id
         val frameId = currentFrameId
 
         val imagePath = saveImageToFile(applicationContext, uri, frameId.toInt())

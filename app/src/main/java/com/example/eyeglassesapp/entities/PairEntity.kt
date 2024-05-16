@@ -35,11 +35,13 @@ import androidx.room.PrimaryKey
     ]
 )
 data class PairEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pair_id") val pairId: Int = 0,
-    @ColumnInfo(name = "order_id") val orderId: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "pair_id") val pairId: Long = 0,
+    @ColumnInfo(name = "order_id") val orderId: Int? = null,
     @ColumnInfo(name = "frame_id") val frameId: Int,
     @ColumnInfo(name = "lens_id") val lensId: Int,
     @ColumnInfo(name = "right_diopter") val rightDiopter: Double,
     @ColumnInfo(name = "left_diopter") val leftDiopter: Double,
-    @ColumnInfo(name = "price") val price: Double
+    @ColumnInfo(name = "price") val price: Double,
+    @ColumnInfo(name = "quantity") val quantity : Int?
+
 )

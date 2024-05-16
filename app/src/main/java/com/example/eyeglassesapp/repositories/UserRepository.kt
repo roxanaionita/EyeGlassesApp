@@ -22,6 +22,7 @@ class UserRepository(private val userDao: UserDao) {
         userDao.updateUser(user)
     }
 
+    //get user by user uid from firebase
     suspend fun getUserById(userId: Int): UserEntity? {
         return userDao.getUserByUid(userId)
     }
@@ -43,5 +44,27 @@ class UserRepository(private val userDao: UserDao) {
                 Log.w("Firestore", "Error deleting document", e)
             }
     }
+    suspend fun getUserIdByEmail(userEmail: String): Int? {
+        return userDao.getUserIdByEmail(userEmail)
+    }
+    //get user bu user_id attribute
+    suspend fun getUserByUserId(userId: Int): UserEntity? {
+        return userDao.getUserByUserId(userId)
+    }
 
+    suspend fun updateUserProfilePicture(userId: Int, imagePath: String) {
+        userDao.updateUserProfilePicture(userId, imagePath)
+    }
+
+    suspend fun getTotalUserCount(): Int{
+        return userDao.getTotalUserCount()
+    }
+
+    suspend fun getMaleUserCount(): Int {
+        return userDao.getMaleUserCount()
+    }
+
+    suspend fun getFemaleUserCount(): Int {
+        return userDao.getFemaleUserCount()
+    }
 }

@@ -36,7 +36,7 @@ class FrameAdapter(private var frames: List<FrameWithImages>) : RecyclerView.Ada
         }
     }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FrameViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding = FrameItemRecviewBinding.inflate(layoutInflater, parent, false)
             return FrameViewHolder(binding)
@@ -47,11 +47,6 @@ class FrameAdapter(private var frames: List<FrameWithImages>) : RecyclerView.Ada
         }
 
         override fun getItemCount(): Int = frames.size
-
-//        fun updateFrames(newFrames: List<FrameWithImages>) {
-//            frames = newFrames
-//            notifyDataSetChanged()
-//        }
 
     fun updateFrames(newFrames: List<FrameWithImages>) {
         val diffCallback = object : DiffUtil.Callback() {

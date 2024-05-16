@@ -32,18 +32,11 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Apply window insets for system bars
 
-        //bind with the xml file and start Firebase instance
         binding = ActivitySignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
 
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
 
         firebaseAuth = FirebaseAuth.getInstance()
         //pentru a stoca userul in CloudFirestore
@@ -73,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
                 else -> "" // No selection or handling other possible options
             }
             val profilePictureUrl = null
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()) {
+            if (validateUsername(username) && isValidEmail(email) && isValidPassword(password, confirmPassword)) {
                 if (password == confirmPassword) {
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                         if (task.isSuccessful) {
@@ -96,17 +89,17 @@ class SignUpActivity : AppCompatActivity() {
                                         username = username,
                                         email = email,
                                         gender = gender,
-                                        faceShapeId = null, // This can be set later or obtained from another part of your app if necessary
-                                        profilePictureUrl = null // This can be updated later when the user adds a profile picture
+                                        faceShapeId = null,
+                                        profilePictureUrl = null //null for now, user page for update
                                     )
                                     CoroutineScope(Dispatchers.IO).launch {
                                         userRepository.insertUser(newUser)
                                     }
 
-                                    //navigate to LogInActivity
+
                                     val intent = Intent(this, LogInActivity::class.java)
                                     startActivity(intent)
-                                    finish() // End this activity
+                                    finish()
                                 }
                                 .addOnFailureListener { e ->
                                     Toast.makeText(this, "Failed to save user details: ${e.message}", Toast.LENGTH_SHORT).show()
@@ -119,11 +112,20 @@ class SignUpActivity : AppCompatActivity() {
                     Toast.makeText(this, "Password does not match", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Can't have empty fields", Toast.LENGTH_SHORT).show()
+                // Display Toast messages for invalid input fields
+                if (!validateUsername(username)) {
+                    Toast.makeText(this, "Invalid username! Username must be at least 5 characters long and contain letters.", Toast.LENGTH_SHORT).show()
+                }
+                if (!isValidEmail(email)) {
+                    Toast.makeText(this, "Invalid email address! Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+                }
+                if (!isValidPassword(password, confirmPassword)) {
+                    Toast.makeText(this, "Invalid password! Password must be at least 8 characters long and contain both letters and numbers.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
-        //daca se apasa pe textul de redirect
+        // redirect text
         binding.loginRedirect.setOnClickListener {
             val loginIntent = Intent(this, LogInActivity::class.java)
             startActivity(loginIntent)
@@ -132,6 +134,22 @@ class SignUpActivity : AppCompatActivity() {
             finish()
         }
 
+    }
+    // Function to validate username
+    private fun validateUsername(username: String): Boolean {
+        return username.length >= 5 && username.matches(Regex(".*[a-zA-Z].*"))
+    }
+
+    // Function to validate email address
+    private fun isValidEmail(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    // Function to validate password
+    private fun isValidPassword(password: String, confirmPassword: String): Boolean {
+        return password.length >= 8 && password.matches(Regex(".*[a-zA-Z].*")) && password.matches(
+            Regex(".*\\d.*")
+        ) && password == confirmPassword
     }
 
 }

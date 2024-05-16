@@ -36,11 +36,6 @@ class LogInActivity : AppCompatActivity() {
 
         enableEdgeToEdge()
 
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
 
         firebaseAuth = FirebaseAuth.getInstance()
 
@@ -52,7 +47,7 @@ class LogInActivity : AppCompatActivity() {
             if(email.isNotEmpty() && password.isNotEmpty()){
                 firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener{task ->
                     if(task.isSuccessful){
-                        // Sign in success, now check if the user is an admin
+                        // Sign in success, check if the user is admin
                         val userId = firebaseAuth.currentUser?.uid ?: return@addOnCompleteListener
                         FirebaseFirestore.getInstance().collection("users").document(userId)
                             .get()
@@ -64,10 +59,10 @@ class LogInActivity : AppCompatActivity() {
                                     Intent(this, MainActivity::class.java)
                                 }
                                 startActivity(intent)
-                                finish() // Close the login activity so user can't return with back button
+                                finish()
                             }
                             .addOnFailureListener { e ->
-                                // Handle failure
+                                // Failure
                                 Log.w("Login", "Error fetching user document", e)
                                 Toast.makeText(this, "Failed to check user role.", Toast.LENGTH_SHORT).show()
                             }

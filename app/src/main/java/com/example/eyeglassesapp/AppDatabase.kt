@@ -1,10 +1,12 @@
 package com.example.eyeglassesapp
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.eyeglassesapp.dao.CartElementDao
 import com.example.eyeglassesapp.dao.FaceShapeDao
 import com.example.eyeglassesapp.dao.FrameDao
 import com.example.eyeglassesapp.dao.FrameFaceShape_CrossDao
@@ -13,6 +15,7 @@ import com.example.eyeglassesapp.dao.LensDao
 import com.example.eyeglassesapp.dao.OrderDao
 import com.example.eyeglassesapp.dao.PairDao
 import com.example.eyeglassesapp.dao.UserDao
+import com.example.eyeglassesapp.entities.CartElementEntity
 import com.example.eyeglassesapp.entities.FaceShapeEntity
 import com.example.eyeglassesapp.entities.FrameEntity
 import com.example.eyeglassesapp.entities.FrameFaceShape_CrossEntity
@@ -31,14 +34,20 @@ import com.example.eyeglassesapp.entities.UserEntity
         LensEntity::class,
         OrderEntity::class,
         PairEntity::class,
-        UserEntity::class
+        UserEntity::class,
+        CartElementEntity:: class
     ],
-    version = 3,
-    exportSchema = false
+    version = 7,
+    //auto migration
+    // from and to need to be modif before
+    autoMigrations = [
+        AutoMigration (from = 6, to = 7)
+    ],
+    exportSchema = true
 )
-@TypeConverters(Converter::class) // Include this if you have any type converters
+@TypeConverters(Converter::class)
 abstract class AppDatabase : RoomDatabase() {
-    // Define DAOs for each entity
+
     abstract fun faceShapeDao(): FaceShapeDao
     abstract fun frameDao(): FrameDao
     abstract fun frameFaceShape_CrossDao(): FrameFaceShape_CrossDao
@@ -47,6 +56,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun orderDao(): OrderDao
     abstract fun pairDao(): PairDao
     abstract fun userDao(): UserDao
+    abstract fun cartElementDao() : CartElementDao
 
     // Singleton pattern to prevent multiple instances of the database opening at the same time
     companion object {
@@ -63,7 +73,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "eyeglasses_database"
-                ).fallbackToDestructiveMigration() // Handle migrations as necessary
+                ).fallbackToDestructiveMigration()
                     .build()
                 INSTANCE = instance
                 return instance

@@ -13,7 +13,7 @@ import androidx.room.Index
             entity = FaceShapeEntity::class,
             parentColumns = ["id"],
             childColumns = ["faceshape_id"],
-            onDelete = ForeignKey.SET_NULL // or ForeignKey.NO_ACTION, depending on your deletion policy
+            onDelete = ForeignKey.SET_NULL
         )
     ],
     indices = [Index(value = ["faceshape_id"])]
@@ -22,7 +22,7 @@ data class UserEntity(
     @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "user_id") val userId: Int = 0,
     @ColumnInfo(name = "firebase_uid") val firebaseUid: String,// pentru userii stocati in firebase
     @ColumnInfo(name = "username") val username: String,
-    @ColumnInfo(name = "faceshape_id") val faceShapeId: Int?, // can be null
+    @ColumnInfo(name = "faceshape_id") val faceShapeId: Int?, // poate fi null
     @ColumnInfo(name = "email") val email: String,
     @ColumnInfo(name = "gender") val gender: String,
     @ColumnInfo(name = "role") val role: String = "user",

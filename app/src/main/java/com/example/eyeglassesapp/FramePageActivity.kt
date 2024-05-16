@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -55,17 +56,17 @@ class FramePageActivity : AppCompatActivity() {
         // Initialize Frame Repository
         imageRepository = ImageRepository(imageDao)
 
-        // Receive frame ID from intent
+        // Receive frame ID from last intent
         val frameId = intent.getIntExtra("frameId", -1)
 
-        // Fetch frame details asynchronously
+        // Fetch frame details asincron
         CoroutineScope(Dispatchers.Main).launch {
             val frameDetails = frameRepository.getFrameById(frameId)
             val images = imageRepository.findImagesByFrameId(frameId)
             if (frameDetails != null) {
                 updateViews(frameDetails, images)
             } else {
-                // Handle the case when frame details are not available
+                Log.d("Debug Frames","Frames info could not be fetched")
             }
         }
 
@@ -85,7 +86,8 @@ class FramePageActivity : AppCompatActivity() {
                 frameRepository.deleteFrameById(frameId)
             }
             val resultIntent = Intent()
-            resultIntent.putExtra("deletedFrameId", frameId) // trimiteți înapoi ID-ul frame-ului șters
+            //send deleted frame id for refresh adapter
+            resultIntent.putExtra("deletedFrameId", frameId)
             setResult(Activity.RESULT_OK, resultIntent)
             finish()
 
@@ -96,10 +98,9 @@ class FramePageActivity : AppCompatActivity() {
     private fun updateViews(frameDetails: FrameEntity, images: List<ImageEntity>) {
 
         // Update views with images
-
-        // Find the first image URI to be used as the product image ( main )
+        // Find the first image URI to be used as the product image (main)
         val productImage = findViewById<ImageView>(R.id.product_image)
-        var productImageUri: String=""
+        var productImageUri: String = ""
         if (images.isNotEmpty()){
             productImageUri = images[0].imageUri
         }else{
@@ -110,7 +111,7 @@ class FramePageActivity : AppCompatActivity() {
         if (productImageBitmap != null) {
             productImage.setImageBitmap(productImageBitmap)
         } else {
-            // If bitmap loading fails, use placeholder image
+            // If bitmap loading fails, put placeholder image
             productImage.setImageResource(R.drawable.default_image_placeholder)
         }
 
@@ -120,28 +121,28 @@ class FramePageActivity : AppCompatActivity() {
 
         // Start from index 1 to skip the product image
         for (i in 1 until images.size) {
-            if (i < 3) { // Ensure we only add two mini images (images 2 and 3)
+            if (i < 3) { //omly 2 and 3 image
                 val imageView = ImageView(this)
                 imageView.layoutParams = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 ).apply {
-                    width = 200 // Adjust width as needed
-                    height = 150 // Adjust height as needed
-                    setMargins(4, 0, 4, 0) // Add margins as needed
+                    width = 200
+                    height = 150
+                    setMargins(4, 0, 4, 0)
                 }
                 val imageResource = getImageBitmapFromPath(images[i].imageUri)
                 if (imageResource != null) {
                     imageView.setImageBitmap(imageResource)
                 } else {
-                    // If bitmap loading fails, use placeholder image
+                    // If bitmap loading fails
                     imageView.setImageResource(R.drawable.default_image_placeholder)
                 }
                 miniImagesContainer.addView(imageView)
             }
         }
 
-        // Update other TextViews with frame details
+        // Other info
         findViewById<TextView>(R.id.product_description).text = frameDetails.description
         findViewById<TextView>(R.id.product_price).text = frameDetails.price.toString()
         findViewById<TextView>(R.id.brand).text = frameDetails.brand
@@ -164,7 +165,7 @@ class FramePageActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle arrow click here
         if (item.itemId == android.R.id.home) {
-            // This is the back button in the toolbar
+            // Back button in the toolbar
             finish() // Close the current activity
             return true
         }

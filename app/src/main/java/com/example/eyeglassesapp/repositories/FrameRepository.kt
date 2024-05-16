@@ -24,8 +24,32 @@ class FrameRepository(private val frameDao: FrameDao) {
     fun getAllFramesWithImages(): LiveData<List<FrameWithImages>>{
         return frameDao.getAllFramesWithImages()
     }
+    fun getAllFramesWithImagesLessThanPrice(price: Double): List<FrameWithImages>{
+        return frameDao.getAllFramesWithImagesLessThanPrice(price)
+    }
+    fun getFramesByCategory(category: String) : List<FrameWithImages>{
+        return frameDao.getFramesByCategory(category)
+    }
+    fun getFramesByGender(category: String, gender : String) : List<FrameWithImages>{
+        return frameDao.getFramesByGender(category,gender)
+    }
     suspend fun deleteFrameById(frameId: Int) {
         frameDao.deleteFrameById(frameId)
     }
 
+    //frame with images for a specific frame id
+    fun getFrameWithImagesById(frameId: Int): LiveData<FrameWithImages> {
+        return frameDao.getFrameWithImagesById(frameId)
+    }
+    suspend fun getTotalFrameCount(): Int{
+        return frameDao.getTotalFrameCount()
+    }
+
+    suspend fun getEyeglassesCount(): Int {
+        return frameDao.getCountByCategory("Eyeglasses")
+    }
+
+    suspend fun getSunglassesCount(): Int {
+        return frameDao.getCountByCategory("Sunglasses")
+    }
 }

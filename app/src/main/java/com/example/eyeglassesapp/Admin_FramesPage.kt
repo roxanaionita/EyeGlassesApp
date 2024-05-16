@@ -28,6 +28,9 @@ class Admin_FramesPage : AppCompatActivity() {
         binding.addFrame.setOnClickListener{
             val intent = Intent(this, NewFrameForm::class.java)
             startActivity(intent)
+            //finish()
+        }
+        binding.backButton.setOnClickListener{
             finish()
         }
 
@@ -39,6 +42,7 @@ class Admin_FramesPage : AppCompatActivity() {
         }
 
     }
+    //if i deleted a frame in the See Frame page
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == DELETE_FRAME_REQUEST_CODE && resultCode == Activity.RESULT_OK) {

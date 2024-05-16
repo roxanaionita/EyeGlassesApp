@@ -22,8 +22,14 @@ interface OrderDao {
     suspend fun getOrdersByUserId(userId: Int): List<OrderEntity>
 
     // Optional: Retrieve all orders
+    // Admin side
     @Query("SELECT * FROM orders")
     suspend fun getAllOrders(): List<OrderEntity>
 
-//
+    @Query("SELECT * FROM orders WHERE order_id = :orderId")
+    suspend fun getOrderById(orderId: Long): OrderEntity?
+
+    @Query("SELECT COUNT(*) FROM orders")
+    suspend fun getTotalOrderCount() : Int
+
 }

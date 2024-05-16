@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserInfoPage"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="24dp">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -83,10 +84,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="100dp"
         android:text="Orders List"
         android:textAlignment="center"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/user_gender" />
@@ -96,7 +98,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orders_recycler_view"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +106,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/orders_list"
         app:layout_constraintVertical_bias="0.100" />
+
+    <include
+        android:id="@+id/empty_view_orders"
+        layout="@layout/empty_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/orders_recycler_view"
+        app:layout_constraintTop_toTopOf="@+id/orders_recycler_view" />
 
     <Button
         android:id="@+id/delete_button"
@@ -113,12 +124,13 @@
         android:layout_marginEnd="150dp"
         android:layout_marginBottom="5dp"
         android:background="@color/design_default_color_primary"
-        android:text="Delete"
+        android:text="Delete User"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/orders_recycler_view" />
+        app:layout_constraintTop_toBottomOf="@id/orders_recycler_view"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

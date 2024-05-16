@@ -1,0 +1,31 @@
+package com.example.eyeglassesapp.ViewModels
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.eyeglassesapp.entities.CartElementEntity
+import com.example.eyeglassesapp.repositories.CartElementRepository
+import kotlinx.coroutines.launch
+
+class CartElementViewModel(private val cartElementRepository: CartElementRepository) : ViewModel() {
+
+    fun getCartElementsByUserId(userId: Int): LiveData<List<CartElementEntity>> {
+        return cartElementRepository.getCartElementsByUserId(userId)
+    }
+    fun deleteCartElement(cartElement: CartElementEntity) {
+        viewModelScope.launch {
+            cartElementRepository.deleteCartElement(cartElement)
+        }
+    }
+
+    fun updateCartElement(cartElement: CartElementEntity) {
+        viewModelScope.launch {
+            cartElementRepository.updateCartElement(cartElement)
+        }
+    }
+    fun deleteAllCartElements() {
+        viewModelScope.launch {
+            cartElementRepository.deleteAllCartElements()
+        }
+    }
+}

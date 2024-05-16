@@ -4,6 +4,7 @@ plugins {
     id("com.google.gms.google-services")
     id("kotlin-kapt")
     id("com.google.devtools.ksp")
+//    id("androidx.room")
 }
 
 android {
@@ -16,10 +17,23 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+        // Configure Room schema directory
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments["room.schemaLocation"] = "$projectDir/schemas"
+            }
+        }
+//        kapt {
+//            arguments {
+//                arg("room.schemaLocation", "$projectDir/schemas")
+//            }
+//        }
+//        ksp {
+//            arg("room.schemaLocation", "$projectDir/schemas")
+//        }
 
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -29,6 +43,7 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -40,22 +55,25 @@ android {
         viewBinding = true
         dataBinding = true
     }
+     //Configure Room schema directory
+//    room {
+//        schemaLocation = "$projectDir/schemas"
+//    }
+//
+//    // Configure source sets for Kotlin files
+    sourceSets {
+        getByName("main").java.srcDirs("src/main/kotlin", "$projectDir/schemas")
+    }
 }
+
 
 dependencies {
     implementation(libs.firebase.firestore.ktx)
-//    implementation(libs.androidx.baseLibrary)
+    //implementation(libs.androidx.baseLibrary)
 
-    //room
-    val room_version = "2.6.1"
-    implementation("androidx.room:room-runtime:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-
-    // To use Kotlin Symbol Processing (KSP)
-    ksp("androidx.room:room-compiler:$room_version")
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation("androidx.room:room-ktx:$room_version")
-
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
@@ -80,5 +98,11 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:21.0.0")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
 
+
+    //dots
+    implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    implementation ("com.tbuonomo:dotsindicator:4.2")
+
+    implementation("com.github.Philjay:MPAndroidChart:v3.1.0")
 
 }

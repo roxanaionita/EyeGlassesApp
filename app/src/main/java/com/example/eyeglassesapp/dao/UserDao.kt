@@ -37,4 +37,24 @@ interface UserDao {
     @Transaction
     @Query("DELETE FROM users WHERE user_id = :userId")
     suspend fun deleteUserById(userId: Int)
+
+    @Query("SELECT user_id FROM users WHERE email = :userEmail LIMIT 1")
+    suspend fun getUserIdByEmail(userEmail: String): Int?
+
+    @Query("SELECT * FROM users WHERE user_id = :userId")
+    suspend fun getUserByUserId(userId: Int): UserEntity?
+
+    @Query("UPDATE users SET profile_picture_url = :imagePath WHERE user_id = :userId")
+    suspend fun updateUserProfilePicture(userId: Int, imagePath: String)
+
+    //admin side
+    //count of all users
+    @Query("SELECT COUNT(*) FROM users")
+    suspend fun getTotalUserCount() : Int
+
+    @Query("SELECT COUNT(*) FROM users WHERE gender = 'male'")
+    suspend fun getMaleUserCount(): Int
+
+    @Query("SELECT COUNT(*) FROM users WHERE gender = 'female'")
+    suspend fun getFemaleUserCount(): Int
 }

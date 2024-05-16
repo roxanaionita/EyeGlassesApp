@@ -73,7 +73,7 @@ class UpdateFrameActivity : AppCompatActivity() {
                 val frame = frameRepository.getFrameById(frameId)
                 existingImages = imageRepository.findImagesByFrameId(frameId)
                 frame?.let {
-                    // Update UI with frame details
+                    // Update UI
                     findViewById<TextInputEditText>(R.id.form_brand).setText(frame.brand)
                     findViewById<TextInputEditText>(R.id.form_model).setText(frame.model)
                     findViewById<TextInputEditText>(R.id.form_color).setText(frame.colour)
@@ -96,9 +96,6 @@ class UpdateFrameActivity : AppCompatActivity() {
                     findViewById<RadioButton>(R.id.PlasticRadioButton).isChecked = frame.material == "Plastic"
                     findViewById<RadioButton>(R.id.MetalRadioButton).isChecked = frame.material == "Metal"
 
-                } ?: run {
-                    // Handle the case where no frame is found
-                    Toast.makeText(applicationContext, "Frame not found", Toast.LENGTH_SHORT).show()
                 }
 
                 //FILL IMAGE VIEWS WITH PHOTOS FROM DATABASE
@@ -118,7 +115,7 @@ class UpdateFrameActivity : AppCompatActivity() {
         }
         //Update frame object
         binding.submitButton.setOnClickListener{
-            // Get references to the form fields
+
             val brand = binding.formBrand.text.toString()
             val model = binding.formModel.text.toString()
             val color = binding.formColor.text.toString()
@@ -160,13 +157,13 @@ class UpdateFrameActivity : AppCompatActivity() {
             // Pass the updated frame object to a function to save it to the database
             newFrame?.let { updateFrame(it) }
 
-            //redirect to recycler view - Admin Frames page
+
             val intent = Intent(this, Admin_FramesPage::class.java)
             startActivity(intent)
             finish()
 
         }
-        //update photos
+        // Update photos
         binding.changePicturesButton.setOnClickListener {
             // Start an image picker activity
             val intent = Intent(Intent.ACTION_GET_CONTENT)
@@ -206,13 +203,12 @@ class UpdateFrameActivity : AppCompatActivity() {
             val myBitmap = BitmapFactory.decodeFile(imgFile.absolutePath)
             imageView.setImageBitmap(myBitmap)
         } else {
-            // Handle the case where the image file doesn't exist
             imageView.setImageResource(R.drawable.default_image_placeholder)
         }
     }
 
     private fun updateImages(selectedImages: List<Uri>) {
-        // Assuming you have references to ImageViews in your activity
+
         val imageViews = listOf(findViewById<ImageView>(R.id.image1), findViewById<ImageView>(R.id.image2), findViewById<ImageView>(R.id.image3))
 
         selectedImages.forEachIndexed { index, uri ->
@@ -222,7 +218,7 @@ class UpdateFrameActivity : AppCompatActivity() {
                     val bitmap = BitmapFactory.decodeFile(imagePath)
                     imageViews[index].setImageBitmap(bitmap)
 
-                    // Prepare to update or insert the ImageEntity
+                    // Update or insert the ImageEntity
                     val imageEntity = if (index < existingImages.size) {
                         existingImages[index].copy(imageUri = imagePath)
                     } else {
@@ -256,7 +252,7 @@ class UpdateFrameActivity : AppCompatActivity() {
 
 
     private fun updateFrame(updatedFrame: FrameEntity) {
-        // Call a function in your repository to update the frame in the database
+        // Database operation
         lifecycleScope.launch {
             frameRepository.updateFrame(updatedFrame)
         }

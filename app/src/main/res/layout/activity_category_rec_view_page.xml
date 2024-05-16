@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <!-- Arrow Back ImageView -->
+    <ImageView
+        android:id="@+id/arrowBack"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/back_button_description"
+        android:src="@drawable/baseline_arrow_back" />
+
+    <!-- LinearLayout for Eyeglasses and Sunglasses -->
+    <LinearLayout
+        android:id="@+id/linear_layout_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/arrowBack"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp">
+
+        <!-- Eyeglasses Category -->
+        <LinearLayout
+            android:id="@+id/woman_category"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/sales_text">
+
+                <ImageView
+                    android:id="@+id/woman_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/businesswoman" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/woman_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Woman"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <!-- Sunglasses Category -->
+        <LinearLayout
+            android:id="@+id/man_category"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="100dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/sales_text">
+
+                <ImageView
+                    android:id="@+id/man_image"
+                    android:layout_width="98dp"
+                    android:layout_height="70dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/boss" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/man_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Man"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- RecyclerView for Frames -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewFramesByCategory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linear_layout_gender"
+        android:padding="8dp"
+        />
+
+</RelativeLayout>

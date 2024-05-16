@@ -43,8 +43,13 @@ class Admin_UsersPage : AppCompatActivity() {
 
         }
 
+        binding.backButton.setOnClickListener{
+            finish()
+        }
+
     }
 
+    //if i deleted a user in the See Users's Detais page
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(requestCode == DELETE_USER_REQUEST_CODE && resultCode == Activity.RESULT_OK){
