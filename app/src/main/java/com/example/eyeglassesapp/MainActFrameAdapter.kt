@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import java.io.File
 
-class MainActFrameAdapter(private var frames: List<FrameWithImages>) : RecyclerView.Adapter<MainActFrameAdapter.ViewHolder>(){
-    private val MAX_ITEMS = 10
+class MainActFrameAdapter(private var frames: List<FrameWithImages>,  private val maxItems: Int? = null) : RecyclerView.Adapter<MainActFrameAdapter.ViewHolder>(){
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val frameImage: ImageView = itemView.findViewById(R.id.frameFirstImage)
         val frameName: TextView = itemView.findViewById(R.id.frame_name)
@@ -86,7 +86,11 @@ class MainActFrameAdapter(private var frames: List<FrameWithImages>) : RecyclerV
         diffResult.dispatchUpdatesTo(this)
     }
     override fun getItemCount(): Int {
-        return Math.min(frames.size, MAX_ITEMS)
+        return if (maxItems != null) {
+            Math.min(frames.size, maxItems)
+        } else {
+            frames.size
+        }
     }
 
 

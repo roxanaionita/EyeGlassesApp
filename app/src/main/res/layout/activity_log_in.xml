@@ -22,7 +22,7 @@
         android:layout_below="@id/backButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:text="Welcome back! Glad to see you, Again!"
+        android:text="Welcome back! Glad to see you again!"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textColor="@android:color/black" />
@@ -85,80 +85,6 @@
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
-    <RelativeLayout
-        android:id="@+id/separationLine"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_below="@id/loginButton"
-        android:layout_marginBottom="24dp">
-
-        <View
-            android:id="@+id/lineLeft"
-            android:layout_width="100dp"
-            android:layout_height="1dp"
-            android:layout_toStartOf="@+id/orLoginUsing"
-            android:layout_toLeftOf="@+id/orLoginUsing"
-            android:background="@android:color/darker_gray"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp" />
-
-        <TextView
-            android:id="@+id/orLoginUsing"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Or LogIn Using"
-            android:layout_centerInParent="true" />
-
-        <View
-            android:id="@+id/lineRight"
-            android:layout_width="100dp"
-            android:layout_height="1dp"
-            android:layout_toEndOf="@+id/orLoginUsing"
-            android:layout_toRightOf="@+id/orLoginUsing"
-            android:background="@android:color/darker_gray"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/socialLoginContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/separationLine"
-        android:layout_marginTop="0dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        >
-
-        <Button
-            android:id="@+id/facebookLoginButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#BBB8B8"
-            android:contentDescription="@string/facebook_login_button_description"
-            android:drawableTop="@drawable/facebook_ic"
-            android:padding="5dp" />
-
-        <Button
-            android:id="@+id/googleLoginButton"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#BBB8B8"
-            android:contentDescription="@string/google_login_button_description"
-            android:drawableTop="@drawable/google_ic"
-            android:padding="5dp" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/signup_redirect"

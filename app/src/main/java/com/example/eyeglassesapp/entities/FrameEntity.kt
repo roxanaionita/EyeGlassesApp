@@ -17,6 +17,4 @@ data class FrameEntity(
     @ColumnInfo(name = "category") val category: String, // sunglasses or eyeglasses
     @ColumnInfo(name = "material") val material: String, // plastic, metal, etc
     @ColumnInfo(name = "frame_type") val frameType: String, // full, semi
-
-
 )

@@ -7,10 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.eyeglassesapp.FrameWithImages
 import com.example.eyeglassesapp.entities.FrameEntity
+import com.example.eyeglassesapp.entities.FrameFaceShape_CrossEntity
 import com.example.eyeglassesapp.repositories.FrameRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class FrameViewModel(private val repository: FrameRepository) : ViewModel() {
 
@@ -23,6 +23,9 @@ class FrameViewModel(private val repository: FrameRepository) : ViewModel() {
     fun insertFrame(frame: FrameEntity) = viewModelScope.launch(Dispatchers.IO) {
         val newFrameId = repository.insertFrame(frame)
         _insertedFrameId.postValue(newFrameId)
+    }
+    fun resetInsertedFrameId() {
+        _insertedFrameId.value = null
     }
 
 
@@ -42,7 +45,7 @@ class FrameViewModel(private val repository: FrameRepository) : ViewModel() {
 
     //limita de pret pentru main activity recycler view
     companion object {
-        private const val PRICE_LIMIT = 700.0 // You can adjust this value
+        private const val PRICE_LIMIT = 700.0
     }
 
 
@@ -125,4 +128,7 @@ class FrameViewModel(private val repository: FrameRepository) : ViewModel() {
             }
         }
     }
+
+
+
 }

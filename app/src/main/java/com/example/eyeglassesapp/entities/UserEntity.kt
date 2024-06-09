@@ -11,7 +11,7 @@ import androidx.room.Index
     foreignKeys = [
         ForeignKey(
             entity = FaceShapeEntity::class,
-            parentColumns = ["id"],
+            parentColumns = ["face_shape_id"],
             childColumns = ["faceshape_id"],
             onDelete = ForeignKey.SET_NULL
         )
@@ -26,5 +26,14 @@ data class UserEntity(
     @ColumnInfo(name = "email") val email: String,
     @ColumnInfo(name = "gender") val gender: String,
     @ColumnInfo(name = "role") val role: String = "user",
-    @ColumnInfo(name = "profile_picture_url") val profilePictureUrl: String? = null// URL-ul imaginii de profil, poate fi null inițial
+    @ColumnInfo(name = "profile_picture_url") val profilePictureUrl: String? = null ,// URL-ul imaginii de profil, poate fi null inițial
+
+    @ColumnInfo(name = "face_length") val faceLength: Float?= null,
+    @ColumnInfo(name = "face_width") val faceWidth: Float?= null,
+    @ColumnInfo(name = "forehead_width") val foreheadWidth: Float?= null,
+    @ColumnInfo(name = "cheekbones_width") val cheekbonesWidth: Float?= null,
+    @ColumnInfo(name = "cheekbones_angle") val cheekbonesAngle: Float?= null,
+    @ColumnInfo(name = "first_prediction") val firstPredictedShape: String? = null,
+    @ColumnInfo(name = "second_prediction") val secondPredictedShape: String?= null
+
 )

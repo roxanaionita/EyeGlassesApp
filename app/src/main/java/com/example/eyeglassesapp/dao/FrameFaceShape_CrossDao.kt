@@ -1,24 +1,43 @@
 package com.example.eyeglassesapp.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
+import com.example.eyeglassesapp.FrameWithImages
 import com.example.eyeglassesapp.entities.FaceShapeEntity
 import com.example.eyeglassesapp.entities.FrameEntity
 import com.example.eyeglassesapp.entities.FrameFaceShape_CrossEntity
 
 @Dao
 interface FrameFaceShape_CrossDao {
-    @Insert
-    suspend fun insertFrameFaceShapeCrossRef(crossRef: FrameFaceShape_CrossEntity)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insert(crossEntity: FrameFaceShape_CrossEntity)
 
-    @Query("SELECT frames.* FROM frames INNER JOIN frame_face_shape_cross ON frames.frame_id = frame_face_shape_cross.frame_id WHERE frame_face_shape_cross.face_shape_id = :faceShapeId")
-    suspend fun getFramesForFaceShape(faceShapeId: Int): List<FrameEntity>
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(crossEntities: List<FrameFaceShape_CrossEntity>)
 
-    @Query("SELECT face_shapes.* FROM face_shapes INNER JOIN frame_face_shape_cross ON face_shapes.id = frame_face_shape_cross.face_shape_id WHERE frame_face_shape_cross.frame_id = :frameId")
-    suspend fun getFaceShapesForFrame(frameId: Int): List<FaceShapeEntity>
+    @Query("SELECT * FROM frame_face_shape_cross WHERE frame_id = :frameId")
+    suspend fun getFaceShapesForFrame(frameId: Int): List<FrameFaceShape_CrossEntity>
 
-    // This could be useful for removing an association between a frame and a face shape
-    @Query("DELETE FROM frame_face_shape_cross WHERE frame_id = :frameId AND face_shape_id = :faceShapeId")
-    suspend fun deleteAssociation(frameId: Int, faceShapeId: Int)
+    @Query("SELECT * FROM frame_face_shape_cross WHERE face_shape_id = :faceShapeId")
+    suspend fun getFramesForFaceShape(faceShapeId: Int): List<FrameFaceShape_CrossEntity>
+
+    @Query("""
+        SELECT * FROM frames 
+        WHERE frame_id IN (SELECT frame_id FROM frame_face_shape_cross WHERE face_shape_id = :faceShapeId)
+        AND category = :category
+    """)
+    suspend fun getFramesWithImagesByFaceShapeIdAndCategory(faceShapeId: Int, category: String): List<FrameWithImages>
+
+    @Query("""
+        SELECT * FROM frames
+        INNER JOIN frame_face_shape_cross ON frames.frame_id = frame_face_shape_cross.frame_id
+        WHERE frame_face_shape_cross.face_shape_id = (SELECT face_shape_id FROM face_shapes WHERE face_shape = :faceShape)
+    """)
+    fun getFramesForFaceShape(faceShape: String): LiveData<List<FrameWithImages>>
+
+
 }

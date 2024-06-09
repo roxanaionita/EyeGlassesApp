@@ -17,24 +17,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginTop="32dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/back_button_description"
+                    android:padding="8dp"
+                    android:src="@drawable/baseline_arrow_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/baseline_arrow_back" />
+                    android:layout_marginTop="5dp"/>
 
-                <ImageView
-                    android:id="@+id/cart_redirect_btn"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
@@ -42,11 +45,37 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/baseline_shopping_cart_24" />
+                    app:layout_constraintVertical_bias="0.0">
 
+                    <ImageView
+                        android:id="@+id/cart_redirect_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="35dp"
+                        android:paddingTop="5dp"
+                        android:layout_marginRight="5dp"
+                        app:srcCompat="@drawable/baseline_shopping_cart_24" />
 
+                    <TextView
+                        android:id="@+id/cart_item_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/circle_background"
+                        android:padding="0dp"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="12sp"
+                        android:minWidth="20dp"
+                        android:gravity="center"
+                        android:layout_alignTop="@id/cart_redirect_btn"
+                        android:layout_alignEnd="@id/cart_redirect_btn"
+                        android:layout_marginEnd="-4dp"
+                        />
+                </RelativeLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewPager"
@@ -54,7 +83,7 @@
                 android:layout_height="290dp"
                 android:layout_margin="16dp"
                 android:padding="16dp"
-                android:background="@color/babyblue"/>
+                android:background="@color/white"/>
 
             <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                 android:id="@+id/dot_indicator"
@@ -62,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:visibility="gone"
-                app:dotsColor="@color/babyblue"
+                app:dotsColor="@color/black"
                 app:dotsCornerRadius="8dp"
                 app:dotsSize="6dp"
                 app:dotsSpacing="2dp"
@@ -75,8 +104,8 @@
                 android:id="@+id/otherImagesRecyclerView"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginEnd="8dp"
                 android:clipToPadding="false"/>
 
@@ -268,7 +297,7 @@
                         android:layout_weight="1"
                         android:text="Oftalmic"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
                         android:layout_marginRight="5dp"/>
 
@@ -279,7 +308,7 @@
                         android:layout_weight="1"
                         android:text="Polarized"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
                         android:layout_marginRight="5dp"
                         android:layout_marginLeft="5dp"/>
@@ -291,7 +320,7 @@
                         android:layout_weight="1"
                         android:text="Antireflex"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
                         android:layout_marginLeft="5dp"/>
 
@@ -348,9 +377,10 @@
                         android:layout_weight="1"
                         android:text="Plastic"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
                     <Button
                         android:id="@+id/glass_lens"
@@ -359,9 +389,10 @@
                         android:layout_weight="1"
                         android:text="Mineral glass"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
                 </LinearLayout>
 
@@ -410,9 +441,10 @@
                         android:layout_weight="1"
                         android:text="Yes"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
                     <Button
                         android:id="@+id/no_pc_filter"
@@ -421,9 +453,10 @@
                         android:layout_weight="1"
                         android:text="No"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
                 </LinearLayout>
 
@@ -466,9 +499,10 @@
                         android:layout_weight="1"
                         android:text="Yes"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
-                        android:layout_marginRight="5dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
                     <Button
                         android:id="@+id/no_uv_filter"
@@ -477,9 +511,10 @@
                         android:layout_weight="1"
                         android:text="No"
                         android:textColor="@android:color/white"
-                        android:backgroundTint="@color/babyblue"
+                        android:backgroundTint="@color/button_selected"
                         android:gravity="center"
-                        android:layout_marginLeft="5dp"/>
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"/>
 
                 </LinearLayout>
 
@@ -616,6 +651,16 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="16dp"
+                />
+            <Button
+                android:id="@+id/try_on_redirect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Try Pair"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="40dp"
                 />
 
         </LinearLayout>

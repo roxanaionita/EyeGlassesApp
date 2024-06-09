@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 7,
-    "identityHash": "211f356f181725146a36d75cb97ef944",
+    "identityHash": "a08baafedaa44d149750edddfcb2d142",
     "entities": [
       {
         "tableName": "face_shapes",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `face_shape` TEXT NOT NULL, `description` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`face_shape_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `face_shape` TEXT NOT NULL, `description` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "id",
+            "columnName": "face_shape_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -30,7 +30,7 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "id"
+            "face_shape_id"
           ]
         },
         "indices": [],
@@ -112,7 +112,7 @@
       },
       {
         "tableName": "frame_face_shape_cross",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`frame_id` INTEGER NOT NULL, `face_shape_id` INTEGER NOT NULL, PRIMARY KEY(`frame_id`, `face_shape_id`), FOREIGN KEY(`frame_id`) REFERENCES `frames`(`frame_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`face_shape_id`) REFERENCES `face_shapes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`frame_id` INTEGER NOT NULL, `face_shape_id` INTEGER NOT NULL, PRIMARY KEY(`frame_id`, `face_shape_id`), FOREIGN KEY(`frame_id`) REFERENCES `frames`(`frame_id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`face_shape_id`) REFERENCES `face_shapes`(`face_shape_id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "frame_id",
@@ -165,7 +165,7 @@
               "face_shape_id"
             ],
             "referencedColumns": [
-              "id"
+              "face_shape_id"
             ]
           }
         ]
@@ -466,7 +466,7 @@
       },
       {
         "tableName": "users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firebase_uid` TEXT NOT NULL, `username` TEXT NOT NULL, `faceshape_id` INTEGER, `email` TEXT NOT NULL, `gender` TEXT NOT NULL, `role` TEXT NOT NULL, `profile_picture_url` TEXT, FOREIGN KEY(`faceshape_id`) REFERENCES `face_shapes`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`user_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firebase_uid` TEXT NOT NULL, `username` TEXT NOT NULL, `faceshape_id` INTEGER, `email` TEXT NOT NULL, `gender` TEXT NOT NULL, `role` TEXT NOT NULL, `profile_picture_url` TEXT, FOREIGN KEY(`faceshape_id`) REFERENCES `face_shapes`(`face_shape_id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
         "fields": [
           {
             "fieldPath": "userId",
@@ -543,7 +543,7 @@
               "faceshape_id"
             ],
             "referencedColumns": [
-              "id"
+              "face_shape_id"
             ]
           }
         ]
@@ -596,7 +596,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '211f356f181725146a36d75cb97ef944')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a08baafedaa44d149750edddfcb2d142')"
     ]
   }
 }

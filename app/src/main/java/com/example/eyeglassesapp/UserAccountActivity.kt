@@ -110,6 +110,7 @@ class UserAccountActivity : AppCompatActivity() {
             // Trigger the logout process
             userViewModel.logout()
         }
+
         // Observe the logout status to handle navigation
         userViewModel.logoutStatus.observe(this) { isLoggedOut ->
             if (isLoggedOut) {
@@ -118,6 +119,11 @@ class UserAccountActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+        binding.personalizedOptionButton.setOnClickListener{
+            val intent = Intent(this, RecommendationActivity::class.java)
+            intent.putExtra("userId",userId)
+            startActivity(intent)
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

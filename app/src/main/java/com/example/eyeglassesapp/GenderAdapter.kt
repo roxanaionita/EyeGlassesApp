@@ -17,6 +17,20 @@ class GenderAdapter(private var framesByGender : List<FrameWithImages>) : Recycl
         val frameImage : ImageView = itemView.findViewById(R.id.frameFirstImage)
         val frameName: TextView = itemView.findViewById(R.id.frame_name)
         val framePrice: TextView = itemView.findViewById(R.id.frame_price)
+        init {
+            // Setează OnClickListener pentru elementul din RecyclerView
+            itemView.setOnClickListener {
+                val position = adapterPosition
+                if (position != RecyclerView.NO_POSITION) {
+                    // Obține elementul din lista frames la poziția curentă
+                    val selectedFrame = framesByGender[position]
+                    val intent = Intent(itemView.context, CreatePairActivity::class.java)
+                    intent.putExtra("frameId", selectedFrame.frame.frameId)
+                    itemView.context.startActivity(intent)
+
+                }
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GenderViewHolder {

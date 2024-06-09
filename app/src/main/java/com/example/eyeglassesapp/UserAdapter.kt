@@ -15,6 +15,7 @@ class UserAdapter(private var userList: List<UserEntity>,
         return UserViewHolder(view)
     }
 
+    //
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = userList[position]
         holder.bind(user)

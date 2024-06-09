@@ -2,6 +2,9 @@ package com.example.eyeglassesapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.eyeglassesapp.ViewModels.OrderViewModel
 import com.example.eyeglassesapp.databinding.ActivityUserOrdersBinding
+import com.example.eyeglassesapp.databinding.EmptyRecyclerBinding
 import com.example.eyeglassesapp.entities.OrderEntity
 import com.example.eyeglassesapp.repositories.OrderRepository
 
@@ -37,6 +41,9 @@ class UserOrdersActivity : AppCompatActivity(), OrderAdapter.OnSeePairsClickList
         userOrdersRecyclerView = binding.orderElementsRecview
         userOrdersRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        val emptyView: View = findViewById(R.id.empty_list)
+        val emptyMessage: TextView = findViewById(R.id.empty_message)
+
         // Create and set up OrderAdapter
         userOrdersAdapter = OrderAdapter(emptyList(), this)
         userOrdersRecyclerView.adapter = userOrdersAdapter
@@ -45,6 +52,12 @@ class UserOrdersActivity : AppCompatActivity(), OrderAdapter.OnSeePairsClickList
         orderViewModel.getOrdersByUserId(userId)
         orderViewModel.ordersLiveData.observe(this) { orders ->
             userOrdersAdapter.updateOrders(orders)
+            if (userOrdersAdapter.itemCount == 0) {
+                emptyView.visibility = View.VISIBLE
+                emptyMessage.text = "No items to display."
+            } else {
+                emptyView.visibility = View.GONE
+            }
         }
 
         binding.backButton.setOnClickListener{

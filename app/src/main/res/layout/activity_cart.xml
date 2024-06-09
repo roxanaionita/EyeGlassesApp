@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".CartActivity"
     android:padding="8dp">
 
@@ -20,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView12"
+            android:id="@+id/arrowBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +39,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/imageView12"
+            app:layout_constraintStart_toStartOf="@+id/arrowBack"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -72,46 +73,7 @@
                 android:layout_height="450dp"
                 android:visibility="gone" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/add_coupon_background"
-                android:orientation="horizontal"
-                android:padding="4dp">
 
-                <EditText
-                    android:id="@+id/editTextText2"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_weight="1"
-                    android:background="#00ffffff"
-                    android:ems="10"
-                    android:hint="Enter your coupon"
-                    android:inputType="text"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:textSize="16sp" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/button2"
-                    style="@android:style/Widget.Button"
-                    android:layout_width="0dp"
-                    android:layout_height="48dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/add_coupon_background"
-                    android:backgroundTint="@color/babyblue"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp"
-                    android:text="Apply"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -217,14 +179,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="700dp"
         android:background="@drawable/add_coupon_background"
-        android:backgroundTint="@color/babyblue"
+        android:backgroundTint="@color/grey"
         android:text="Submit Order"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/scrollView2" />
+        app:layout_constraintTop_toTopOf="@+id/scrollView2"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

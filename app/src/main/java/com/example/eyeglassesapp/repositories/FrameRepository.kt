@@ -52,4 +52,10 @@ class FrameRepository(private val frameDao: FrameDao) {
     suspend fun getSunglassesCount(): Int {
         return frameDao.getCountByCategory("Sunglasses")
     }
+
+    // Face shape
+    suspend fun getFramesWithImagesByFaceShapeIds(faceShapeIds: List<Int>): List<FrameWithImages> {
+        return frameDao.getFramesWithImagesByFaceShapeIds(faceShapeIds)
+    }
+
 }

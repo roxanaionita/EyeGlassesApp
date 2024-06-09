@@ -36,5 +36,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_marginTop="20dp"/>
+    <include
+        android:id="@+id/empty_orders_admin"
+        layout="@layout/empty_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:visibility="gone"
+        />
 
 </RelativeLayout>

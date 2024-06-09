@@ -129,6 +129,7 @@ class SignUpActivity : AppCompatActivity() {
         binding.loginRedirect.setOnClickListener {
             val loginIntent = Intent(this, LogInActivity::class.java)
             startActivity(loginIntent)
+            finish()
         }
         binding.backButton.setOnClickListener{
             finish()

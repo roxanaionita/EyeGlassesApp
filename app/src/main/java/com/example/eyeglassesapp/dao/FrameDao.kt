@@ -67,4 +67,12 @@ interface FrameDao {
     //folosit pentru statisticile adminului
     @Query("SELECT COUNT(*) FROM frames WHERE category = :category")
     suspend fun getCountByCategory(category: String): Int
+
+
+    //Face shape functions
+    @Transaction
+    @Query("SELECT * FROM frames WHERE frame_id IN (SELECT frame_id FROM frame_face_shape_cross WHERE face_shape_id IN (:faceShapeIds))")
+    suspend fun getFramesWithImagesByFaceShapeIds(faceShapeIds: List<Int>): List<FrameWithImages>
+
+
 }

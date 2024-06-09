@@ -120,6 +120,9 @@ class CartActivity : AppCompatActivity() {
         binding.submitBtn.setOnClickListener{
             onSubmitButtonClicked()
         }
+        binding.arrowBack.setOnClickListener{
+            finish()
+        }
 
 
     }

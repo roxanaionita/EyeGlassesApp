@@ -1,6 +1,8 @@
 package com.example.eyeglassesapp
 
 import android.os.Bundle
+import android.view.View
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -42,6 +44,9 @@ class Admin_OrdersPage : AppCompatActivity() {
         userRepository = UserRepository(userDao)
         orderRepository = OrderRepository(orderDao)
 
+        val emptyView: View = findViewById(R.id.empty_orders_admin)
+        val emptyMessage: TextView = findViewById(R.id.empty_message)
+
 
         adminOrderAdapter = AdminOrderAdapter(emptyList(), userRepository)
 
@@ -56,8 +61,13 @@ class Admin_OrdersPage : AppCompatActivity() {
         orderViewModel.allOrders.observe(this) { orders ->
             // Update the adapter with the new list of orders
             adminOrderAdapter.updateOrders(orders)
+            if (adminOrderAdapter.itemCount == 0) {
+                emptyView.visibility = View.VISIBLE
+                emptyMessage.text = "No items to display."
+            } else {
+                emptyView.visibility = View.GONE
+            }
         }
-
 
         binding.backButton.setOnClickListener{
             finish()

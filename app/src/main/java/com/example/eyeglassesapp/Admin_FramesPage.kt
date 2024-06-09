@@ -31,6 +31,8 @@ class Admin_FramesPage : AppCompatActivity() {
             //finish()
         }
         binding.backButton.setOnClickListener{
+            val intent = Intent(this, AdminDashboardActivity::class.java)
+            startActivity(intent)
             finish()
         }
 

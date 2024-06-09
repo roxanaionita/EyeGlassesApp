@@ -37,11 +37,9 @@ import com.example.eyeglassesapp.entities.UserEntity
         UserEntity::class,
         CartElementEntity:: class
     ],
-    version = 7,
-    //auto migration
-    // from and to need to be modif before
+    version = 12,
     autoMigrations = [
-        AutoMigration (from = 6, to = 7)
+        AutoMigration (from = 11, to = 12)
     ],
     exportSchema = true
 )

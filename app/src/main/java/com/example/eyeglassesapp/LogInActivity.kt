@@ -82,6 +82,8 @@ class LogInActivity : AppCompatActivity() {
         }
         //BACK BUTTON
         binding.backButton.setOnClickListener{
+            val intent = Intent(this, SplashActivity::class.java)
+            startActivity(intent)
             finish()
         }
         //FORGOT PASSWORD
@@ -90,23 +92,20 @@ class LogInActivity : AppCompatActivity() {
             startActivity(forgetPassIntent)
             finish()
         }
-        //GOOGLE LOGIN
-        binding.googleLoginButton.setOnClickListener{
-            signInGoogle()
-        }
+
 
     }
 
-    private fun signInGoogle() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-
-        val googleSignInClient = GoogleSignIn.getClient(this, gso)
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
+//    private fun signInGoogle() {
+//        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//            .requestIdToken(getString(R.string.default_web_client_id))
+//            .requestEmail()
+//            .build()
+//
+//        val googleSignInClient = GoogleSignIn.getClient(this, gso)
+//        val signInIntent = googleSignInClient.signInIntent
+//        startActivityForResult(signInIntent, RC_SIGN_IN)
+//    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

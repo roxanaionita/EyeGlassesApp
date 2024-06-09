@@ -46,6 +46,12 @@ class UserViewModel (private val userRepository: UserRepository) : ViewModel() {
             _userLiveData.value = user
         }
     }
+    fun updateUser(user: UserEntity) {
+        viewModelScope.launch {
+            userRepository.updateUser(user)
+        }
+    }
+    //for the recommandation activity
 
 
 

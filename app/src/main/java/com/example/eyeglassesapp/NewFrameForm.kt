@@ -16,12 +16,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import com.example.eyeglassesapp.ViewModels.FaceShapeViewModel
+import com.example.eyeglassesapp.ViewModels.FrameFaceShapeCrossViewModel
 import com.example.eyeglassesapp.ViewModels.FrameViewModel
 import com.example.eyeglassesapp.dao.ImageDao
 
 import com.example.eyeglassesapp.databinding.ActivityNewFrameFormBinding
+import com.example.eyeglassesapp.entities.FaceShapeEntity
 import com.example.eyeglassesapp.entities.FrameEntity
+import com.example.eyeglassesapp.entities.FrameFaceShape_CrossEntity
 import com.example.eyeglassesapp.entities.ImageEntity
 import com.example.eyeglassesapp.repositories.FrameRepository
 import com.example.eyeglassesapp.repositories.ImageRepository
@@ -66,9 +71,10 @@ class NewFrameForm : AppCompatActivity() {
         // Initialize Repository
         imageRepository = ImageRepository(imageDao)
 
-        frameViewModel.insertedFrameId.observe(this) { frameId ->
-            currentFrameId = frameId
-        }
+
+        // Obtain the ViewModel
+        val frameFaceShapeCrossViewModel = ViewModelProvider(this).get(FrameFaceShapeCrossViewModel::class.java)
+        val faceShapeViewModel = ViewModelProvider(this).get(FaceShapeViewModel::class.java)
 
         binding.frameCheckBox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -97,6 +103,24 @@ class NewFrameForm : AppCompatActivity() {
                     R.id.MetalRadioButton -> "Metal"
                     else -> ""
                 }
+                // Collect selected face shapes
+                val selectedFaceShapes = mutableListOf<String>()
+                if (binding.roundFaceCheckBox.isChecked) {
+                    selectedFaceShapes.add("Round")
+                }
+                if (binding.ovalFaceCheckBox.isChecked) {
+                    selectedFaceShapes.add("Oval")
+                }
+                if (binding.oblongFaceCheckBox.isChecked) {
+                    selectedFaceShapes.add("Oblong")
+                }
+                if (binding.heartFaceCheckBox.isChecked) {
+                    selectedFaceShapes.add("Heart")
+                }
+                if (binding.squareFaceCheckBox.isChecked) {
+                    selectedFaceShapes.add("Square")
+                }
+
 
                 val newFrame = FrameEntity(
                     brand = brand,
@@ -109,9 +133,31 @@ class NewFrameForm : AppCompatActivity() {
                     material = material,
                     frameType = frameType
                 )
-
+                // Insert the frame along with its associated face shapes
                 frameViewModel.insertFrame(newFrame)
+                // Observe the inserted frame ID
+                frameViewModel.insertedFrameId.observe(this) { frameId ->
+                    if (frameId != null && frameId != 0L) {
+                        currentFrameId = frameId
+
+                        // Insert the frame face shape cross-references
+                        selectedFaceShapes.forEach { faceShapeName ->
+                            faceShapeViewModel.getFaceShapeIdByName(faceShapeName).observe(this) { faceShapeId ->
+                                if (faceShapeId != null) {
+                                    val crossEntity = FrameFaceShape_CrossEntity(
+                                        frame_id = frameId.toInt(),
+                                        face_shape_id = faceShapeId
+                                    )
+                                    frameFaceShapeCrossViewModel.insert(crossEntity)
+                                }
+                            }
+                        }
+                        // Reset the inserted frame ID to prevent multiple insertions
+                        frameViewModel.resetInsertedFrameId()
+                    }
+                }
             }
+
         }
 
         binding.addPicturesButton.setOnClickListener {

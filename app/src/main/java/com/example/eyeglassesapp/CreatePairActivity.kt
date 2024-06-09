@@ -1,9 +1,15 @@
 package com.example.eyeglassesapp
 
 import FrameViewModelFactory
+import android.content.ContentValues.TAG
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
@@ -26,6 +32,8 @@ import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 import android.widget.NumberPicker
 import android.widget.Spinner
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LiveData
 import com.example.eyeglassesapp.ViewModels.LensViewModel
@@ -40,6 +48,16 @@ import com.example.eyeglassesapp.repositories.PairRepository
 import com.example.eyeglassesapp.repositories.UserRepository
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import android.Manifest
+import android.content.ContentValues
+import android.os.Build
+import android.provider.MediaStore
+import android.provider.Settings
+import com.example.eyeglassesapp.ViewModels.CartElementViewModel
+
 
 class CreatePairActivity : AppCompatActivity() {
 
@@ -55,6 +73,9 @@ class CreatePairActivity : AppCompatActivity() {
     }
     private val userViewModel: UserViewModel by viewModels {
         UserViewModelFactory(UserRepository(AppDatabase.getDatabase(applicationContext).userDao()))
+    }
+    private val cartElementViewModel: CartElementViewModel by viewModels {
+        CartElementViewModelFactory(CartElementRepository(AppDatabase.getDatabase(applicationContext).cartElementDao()))
     }
     private lateinit var binding : ActivityCreatePairBinding
 
@@ -74,7 +95,9 @@ class CreatePairActivity : AppCompatActivity() {
     private var lastLensId : Int? = null
     private var finalPairPrice : Double = 0.0
 
-
+    companion object {
+        private const val REQUEST_CODE_PERMISSIONS = 10
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +115,12 @@ class CreatePairActivity : AppCompatActivity() {
 
                 // debug
                 Log.d("UserIdDebug", "User id: $userId")
+                cartElementViewModel.fetchTotalCartItemCount(userId)
+
+                cartElementViewModel.totalCartItemCount.observe(this) { count ->
+                    Log.d("CartActivity", "Observed cart item count: $count")
+                    findViewById<TextView>(R.id.cart_item_count).text = count.toString()
+                }
 
             } else {
                 // User ID nu a putut fi obținut
@@ -101,9 +130,9 @@ class CreatePairActivity : AppCompatActivity() {
 
 
         // GESTIONARE AFISARE CORESPUNZATOARE A FRAME INFO
-
+            //get frame id from intent
             frameId = intent.getIntExtra("frameId", 0)
-
+            var savedImagePath: String? = null
             // Observare LiveData pentru FrameWithImages
             frameViewModel.getFrameWithImagesById(frameId)
                 .observe(this, Observer { frameWithImages ->
@@ -112,8 +141,64 @@ class CreatePairActivity : AppCompatActivity() {
                         displayImages(frameWithImages.images)
                         // Afișează informațiile despre cadru
                         displayFrameInfo(frameWithImages)
+
+                        // Hide PC filter options if the frame category is "Sunglasses"
+                        if (frameWithImages.frame.category == "Sunglasses") {
+                            binding.alegereFiltruPc.visibility = View.GONE
+                            binding.pcFilter.visibility = View.GONE
+                            binding.noPcFilter.visibility = View.GONE
+                            binding.infoPcFilter.visibility = View.GONE
+                            isPCFilterSelected = true
+                            pcFilterOption = false
+                        } else {
+                            binding.alegereFiltruPc.visibility = View.VISIBLE
+                            binding.pcFilter.visibility = View.VISIBLE
+                            binding.noPcFilter.visibility = View.VISIBLE
+                            binding.infoPcFilter.visibility = View.VISIBLE
+                        }
+                        //take first image, remove background and save into no_bg folder
+                        val firstImage = frameWithImages.images.firstOrNull()
+                        if (firstImage != null) {
+                            val fileName = "$frameId.png"
+                            savedImagePath = getSavedImagePath(fileName)
+                            if (savedImagePath != null) {
+                                // Image already transformed
+                                Log.d("Transform Pic Debug", "Picture was transformed before")
+                                Log.d("path","$savedImagePath")
+                            } else {
+                                // Perform transformation using API
+                                val imagePath = firstImage.imageUri // Assuming imagePath is the local path of the image
+                                val bitmap = BitmapFactory.decodeFile(imagePath)
+                                removeBackgroundFromImage(bitmap) { resultBitmap ->
+                                    // Save the processed image to the "no_bg" folder
+                                    if (resultBitmap != null) {
+                                        val savedPath = saveImageToMediaStore(resultBitmap)
+                                        if (savedPath != null) {
+                                            savedImagePath = savedPath
+                                            Toast.makeText(this, "Image saved to $savedPath", Toast.LENGTH_SHORT).show()
+                                            Log.d("path","Image saved to $savedPath")
+                                        } else {
+                                            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()
+                                            Log.d("path","Failed to save image")
+                                        }
+                                    } else {
+                                        Toast.makeText(this, "Failed to remove background", Toast.LENGTH_SHORT).show()
+                                        Log.d("path","Failed to remove background")
+                                    }
+                                }
+                            }
+                        }
                     }
                 })
+
+        binding.tryOnRedirect.setOnClickListener {
+            if (allPermissionsGranted()) {
+                Log.d("Image Debug","${savedImagePath}")
+                showRulesDialog(savedImagePath)
+            } else {
+                showPermissionDialog(savedImagePath)
+            }
+        }
 
 
             // GESTIONARE EXTRAGERE LENTILA DIN BAZA DE DATE IN FUNCTIE DE USER INPUT
@@ -123,18 +208,21 @@ class CreatePairActivity : AppCompatActivity() {
                 selectedLensType = "Oftalmic"
                 Log.d("SelectionDebug", "Selected Lens Type: $selectedLensType")
                 updatePairPrice()
+                binding.oftalmicLens.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             binding.polarizedLens.setOnClickListener {
                 selectedLensType = "Polarized"
                 Log.d("SelectionDebug", "Selected Lens Type: $selectedLensType")
                 updatePairPrice()
+                binding.polarizedLens.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             binding.antireflexLens.setOnClickListener {
                 selectedLensType = "Antireflex"
                 Log.d("SelectionDebug", "Selected Lens Type: $selectedLensType")
                 updatePairPrice()
+                binding.antireflexLens.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             // select material
@@ -142,12 +230,14 @@ class CreatePairActivity : AppCompatActivity() {
                 selectedMaterial = "Plastic"
                 Log.d("SelectionDebug", "Selected Lens Material: $selectedMaterial")
                 updatePairPrice()
+                binding.plasticLens.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             binding.glassLens.setOnClickListener {
                 selectedMaterial = "Glass"
                 Log.d("SelectionDebug", "Selected Lens Material: $selectedMaterial")
                 updatePairPrice()
+                binding.glassLens.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             // select uv filter
@@ -158,6 +248,7 @@ class CreatePairActivity : AppCompatActivity() {
                 Log.d("SelectionDebug", "Selected UV: $isUVFilterSelected")
                 Log.d("SelectionDebug", "Selected UV: $uvFilterOption")
                 updatePairPrice()
+                binding.noUvFilter.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             binding.uvFilter.setOnClickListener {
@@ -166,6 +257,7 @@ class CreatePairActivity : AppCompatActivity() {
                 Log.d("SelectionDebug", "Selected UV: $isUVFilterSelected")
                 Log.d("SelectionDebug", "Selected UV: $uvFilterOption")
                 updatePairPrice()
+                binding.uvFilter.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             // select pc filter
@@ -176,6 +268,7 @@ class CreatePairActivity : AppCompatActivity() {
                 Log.d("SelectionDebug", "Selected PC: $isPCFilterSelected")
                 Log.d("SelectionDebug", "Selected PC: $pcFilterOption")
                 updatePairPrice()
+                binding.noPcFilter.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
             binding.pcFilter.setOnClickListener {
@@ -184,6 +277,7 @@ class CreatePairActivity : AppCompatActivity() {
                 Log.d("SelectionDebug", "Selected PC: $isPCFilterSelected")
                 Log.d("SelectionDebug", "Selected PC: $pcFilterOption")
                 updatePairPrice()
+                binding.pcFilter.setBackgroundColor(ContextCompat.getColor(this, R.color.black))
             }
 
 
@@ -244,8 +338,15 @@ class CreatePairActivity : AppCompatActivity() {
 
         //GESTIONARE CREARE OBIECT PERECHE ON ADD TO CART CLICKED
         binding.addToCart.setOnClickListener{
-            //get lens id
-            observeLensIdAndInsertPair()
+            // Check if all options are selected
+            if (selectedLensType != null && selectedMaterial != null && isUVFilterSelected && isPCFilterSelected) {
+                // All options are selected, proceed with observing lens ID and inserting pair
+                observeLensIdAndInsertPair()
+
+            } else {
+                // Not all options are selected, show an alert dialog
+                showAlertDialog("Check All Options", "Please make sure you have selected lens type, material, and filters before adding to cart.")
+            }
         }
 
         binding.cartRedirectBtn.setOnClickListener{
@@ -253,13 +354,117 @@ class CreatePairActivity : AppCompatActivity() {
             intent.putExtra("userId", userId)
             startActivity(intent)
         }
+        binding.cartItemCount.setOnClickListener{
+            val intent = Intent(this, CartActivity::class.java)
+            intent.putExtra("userId", userId)
+            startActivity(intent)
+        }
+        binding.backButton.setOnClickListener{
+            finish()
+        }
 
 
 
     }
+    private fun allPermissionsGranted(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this, Manifest.permission.CAMERA
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+    private fun showPermissionDialog(imagePath: String?) {
+        AlertDialog.Builder(this)
+            .setTitle("Camera Permission Needed")
+            .setMessage("This app needs the Camera permission to try on the pair. Please allow the permission.")
+            .setPositiveButton("OK") { _, _ ->
+                requestCameraPermission()
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    //rules for the loaded picture
+    private fun showRulesDialog(imagePath: String?) {
+        AlertDialog.Builder(this)
+            .setTitle("Camera Rules for TryOn")
+            .setMessage("Load a clear, front faced picture of you.")
+            .setPositiveButton("OK") { _, _ ->
+                startTryOnActivity(imagePath)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun requestCameraPermission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.CAMERA), REQUEST_CODE_PERMISSIONS
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Log.d("req code", "$requestCode")
+        Log.d("permissions", "${permissions.joinToString()}")
+        Log.d("grantResults", "${grantResults.joinToString()}")
+
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted
+                val savedImagePath = getSavedImagePath("$frameId.png")
+                startTryOnActivity(savedImagePath)
+            } else {
+                // Permission denied
+                if (shouldShowRequestPermissionRationale(Manifest.permission.CAMERA)) {
+                    // Show rationale explaining why the permission is needed
+                    // You can display a dialog or a snackbar here
+                    Toast.makeText(this, "Permission Denied. Please grant access to the camera.", Toast.LENGTH_SHORT).show()
+                } else {
+                    // User has selected "Don't ask again", direct them to app settings
+                    Toast.makeText(this, "Permission Denied. Please enable camera access in app settings.", Toast.LENGTH_SHORT).show()
+                    showPermissionDeniedDialog()
+                }
+            }
+        }
+    }
+
+    private fun showPermissionDeniedDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Permission Denied")
+            .setMessage("Please enable camera access in app settings to try on the pair.")
+            .setPositiveButton("Go to Settings") { _, _ ->
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }
+            .setNegativeButton("Cancel") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+
+    private fun startTryOnActivity(imagePath: String?) {
+        if (imagePath != null) {
+            val intent = Intent(this, TryOnActivity::class.java).apply {
+                putExtra("imagePath", imagePath)
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Image not transformed yet", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     private fun observeLensIdAndInsertPair() {
-        lensViewModel.getLensId(selectedLensType!!, selectedMaterial!!, isUVFilterSelected, isPCFilterSelected)
+        lensViewModel.getLensId(selectedLensType!!, selectedMaterial!!, uvFilterOption, pcFilterOption)
             .observe(this, Observer { lensId ->
                 if (lensId != null) {
                     lastLensId = lensId
@@ -267,6 +472,7 @@ class CreatePairActivity : AppCompatActivity() {
 
                     // Dacă lensId-ul a fost obținut cu succes, putem crea și insera PairEntity
                     createAndInsertPair()
+
                 } else {
                     Toast.makeText(this, "LensId nu a putut fi obținut.", Toast.LENGTH_SHORT).show()
                 }
@@ -308,6 +514,12 @@ class CreatePairActivity : AppCompatActivity() {
                     Toast.makeText(this, "Failed to add pair to cart", Toast.LENGTH_SHORT).show()
                 }
             })
+            cartElementViewModel.fetchTotalCartItemCount(userId)
+
+            cartElementViewModel.totalCartItemCount.observe(this) { count ->
+                Log.d("CartActivity", "Observed cart item count: $count")
+                findViewById<TextView>(R.id.cart_item_count).text = count.toString()
+            }
         } ?: run {
             Log.e("LensIdDebug", "LensId is null")
         }
@@ -375,5 +587,86 @@ class CreatePairActivity : AppCompatActivity() {
         recyclerView.layoutManager = layoutManager
         val adapter = OtherImagesAdapter(images.subList(1, images.size))
         recyclerView.adapter = adapter
+    }
+
+    private fun saveImageToExternalStorage(finalBitmap: Bitmap, fileName: String): String? {
+        val root = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString()
+        val myDir = File("$root/no_bg")
+        if (!myDir.exists()) {
+            myDir.mkdirs()
+        }
+        val file = File(myDir, fileName)
+        if (file.exists()) file.delete()
+        try {
+            val out = FileOutputStream(file)
+            finalBitmap.compress(Bitmap.CompressFormat.PNG, 100, out)
+            out.flush()
+            out.close()
+            return file.absolutePath
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return null
+    }
+
+    private fun saveImageToMediaStore(finalBitmap: Bitmap): String? {
+        val resolver = contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, "$frameId.png")
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                put(
+                    MediaStore.MediaColumns.RELATIVE_PATH,
+                    Environment.DIRECTORY_PICTURES + "/no_bg"
+                )
+            }
+        }
+        val imageUri = resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)
+        imageUri?.let { uri ->
+            try {
+                resolver.openOutputStream(uri)?.use { outputStream ->
+                    finalBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+                    return uri.toString()
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return null
+    }
+
+    // Function to check if the image already exists in the "no_bg" folder
+//    private fun getSavedImagePath(fileName: String): String? {
+//        val root = getExternalFilesDir(Environment.DIRECTORY_PICTURES).toString()
+//        val filePath = "$root/no_bg/$fileName"
+//        val file = File(filePath)
+//        return if (file.exists()) {
+//            filePath
+//        } else {
+//            null
+//        }
+//    }
+    // Function to check if the image already exists in the "no_bg" folder
+    private fun getSavedImagePath(fileName: String): String? {
+        val root = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString()
+        val filePath = "$root/no_bg/$fileName"
+        val file = File(filePath)
+        return if (file.exists()) {
+            filePath
+        } else {
+            null
+        }
+    }
+
+
+    private fun showAlertDialog(title: String, message: String) {
+        AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton("OK") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
     }
 }

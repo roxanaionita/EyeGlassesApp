@@ -105,4 +105,30 @@ dependencies {
 
     implementation("com.github.Philjay:MPAndroidChart:v3.1.0")
 
+    //retrofit to use remove bg
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation ("com.squareup.okhttp3:okhttp:4.9.1")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.9.1")
+
+
+    //ml kit
+    implementation ("com.google.mlkit:face-detection:16.1.6")
+    implementation ("androidx.camera:camera-core:1.1.0")
+    implementation ("androidx.camera:camera-camera2:1.1.0")
+    implementation ("androidx.camera:camera-lifecycle:1.1.0")
+    implementation ("androidx.camera:camera-view:1.0.0-alpha29")
+    
+    implementation ("com.google.mlkit:face-mesh-detection:16.0.0-beta1")
+
+    implementation ("org.tensorflow:tensorflow-lite:2.7.0")
+    implementation ("org.tensorflow:tensorflow-lite-task-vision:0.2.0")
+
+    implementation ("com.google.mediapipe:tasks-vision:0.10.9")
+//    implementation("io.coil-kt:coil:2.6.0")
+    // Coil for image loading
+    implementation ("io.coil-kt:coil:2.2.0")
+    implementation ("io.coil-kt:coil-base:2.2.0")
+
+
 }

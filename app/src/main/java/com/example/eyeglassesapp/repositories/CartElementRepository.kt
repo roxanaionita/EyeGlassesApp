@@ -1,5 +1,6 @@
 package com.example.eyeglassesapp.repositories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import com.example.eyeglassesapp.dao.CartElementDao
 import com.example.eyeglassesapp.entities.CartElementEntity
@@ -26,5 +27,11 @@ class CartElementRepository(private val cartElementDao: CartElementDao) {
     }
     suspend fun deleteAllCartElements() {
         cartElementDao.deleteAllCartElements()
+    }
+
+    suspend fun getTotalCartItemCount(userId: Int): Int {
+        val count = cartElementDao.getTotalCartItemCount(userId)
+        Log.d("CartRepository", "Total cart item count for user $userId: $count")
+        return count ?: 0
     }
 }

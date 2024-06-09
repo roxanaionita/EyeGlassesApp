@@ -59,6 +59,10 @@ class AdminDashboardActivity : AppCompatActivity() {
         binding = ActivityAdminDashboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Populare baza de date cu face shape
+        val database = AppDatabase.getDatabase(this)
+        FaceShapeUtils.populateFaceShapes(database.faceShapeDao())
+
 
         // CHARTS
         // fetch frame counts

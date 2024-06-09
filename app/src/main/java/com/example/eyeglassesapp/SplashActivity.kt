@@ -23,6 +23,7 @@ class SplashActivity : AppCompatActivity() {
 
         val loginButton: Button = findViewById(R.id.splash_login_redirect)
         val signupButton: Button = findViewById(R.id.splash_signup_redirect)
+        //val testRemoveBg : Button = findViewById(R.id.test_removebg)
 
         loginButton.setOnClickListener {
             // Start LoginActivity
@@ -35,6 +36,10 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
+//        testRemoveBg.setOnClickListener{
+//            val intent = Intent(this, TestRemoveBg::class.java)
+//            startActivity(intent)
+//        }
     }
 }
 

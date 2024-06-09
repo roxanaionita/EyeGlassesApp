@@ -124,9 +124,15 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        // REDIRECT TO PAGE WITH ALL FRAMES
+        binding.seeAll.setOnClickListener {
+            val intent = Intent(this, AllFramesActivity::class.java)
+            startActivity(intent)
+        }
+
 
         //GESTIONARE RECYCLER VIEW PENTRU POPULAR FRAMES = UNDER A PRICE
-        adapter = MainActFrameAdapter(emptyList())
+        adapter = MainActFrameAdapter(emptyList(), 10)
         val recyclerView = binding.recyclerviewMenu
 
         //se seteaza layout-ul recycler view ului

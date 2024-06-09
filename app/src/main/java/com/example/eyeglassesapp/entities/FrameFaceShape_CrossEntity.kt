@@ -20,7 +20,7 @@ import androidx.room.Index
         ForeignKey(
             entity = FaceShapeEntity::class,
             // parent table - faceShapes table
-            parentColumns = ["id"],
+            parentColumns = ["face_shape_id"],
             // child table - cross table
             childColumns = ["face_shape_id"],
             onDelete = ForeignKey.CASCADE
