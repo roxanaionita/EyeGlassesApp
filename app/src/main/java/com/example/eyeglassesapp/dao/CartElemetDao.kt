@@ -31,5 +31,5 @@ interface CartElementDao {
     suspend fun deleteAllCartElements()
 
     @Query("SELECT SUM(quantity) FROM cart_elements WHERE user_id = :userId")
-    suspend fun getTotalCartItemCount(userId: Int): Int?
+    suspend fun getTotalCartItemCount(userId: Int): Int
 }

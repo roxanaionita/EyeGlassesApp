@@ -60,6 +60,12 @@ class UserOrdersActivity : AppCompatActivity(), OrderAdapter.OnSeePairsClickList
             }
         }
 
+
+        // ITEM SPACING USING RESOURCE DIMENS XML FILE
+        val itemDecoration = VerticalSpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.recycler_view_spacing))
+        binding.orderElementsRecview.addItemDecoration(itemDecoration)
+
+
         binding.backButton.setOnClickListener{
             super.onBackPressed()
             finish()
@@ -73,4 +79,18 @@ class UserOrdersActivity : AppCompatActivity(), OrderAdapter.OnSeePairsClickList
         intent.putExtra("orderId", order.orderId)
         startActivity(intent)
     }
+    private class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
+        RecyclerView.ItemDecoration() {
+
+        override fun getItemOffsets(
+            outRect: android.graphics.Rect,
+            view: android.view.View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.bottom = verticalSpaceHeight
+        }
+    }
 }
+

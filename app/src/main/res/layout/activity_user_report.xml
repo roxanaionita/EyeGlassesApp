@@ -210,6 +210,7 @@
 
     <!-- Eyeglasses RecyclerView -->
     <TextView
+        android:id="@+id/firstshapeTextEyeglasses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Eyeglasses for first shape"
@@ -223,6 +224,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"/>
         <TextView
+            android:id="@+id/secondshapeTextEyeglasses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Eyeglasses for second shape"
@@ -239,6 +241,7 @@
 
         <!-- Sunglasses RecyclerView -->
     <TextView
+        android:id="@+id/firstshapeTextSunglasses"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sunglasses for first shape"
@@ -252,6 +255,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"/>
         <TextView
+            android:id="@+id/secondshapeTextSunglasses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sunglasses for second shape"

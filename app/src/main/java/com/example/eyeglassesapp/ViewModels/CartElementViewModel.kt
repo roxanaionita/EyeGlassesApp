@@ -38,10 +38,10 @@ class CartElementViewModel(private val cartElementRepository: CartElementReposit
         viewModelScope.launch {
             try {
                 val count = cartElementRepository.getTotalCartItemCount(userId)
-                _totalCartItemCount.value = count
+                _totalCartItemCount.postValue(count)
                 Log.e("CartViewModel", "Failed to fetch cart item count ${count} items")
             } catch (e: Exception) {
-                _totalCartItemCount.value = 0
+                _totalCartItemCount.postValue(0)
                 Log.e("CartViewModel", "Failed to fetch cart item count", e)
             }
         }

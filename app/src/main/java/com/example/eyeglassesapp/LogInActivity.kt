@@ -119,6 +119,14 @@ class LogInActivity : AppCompatActivity() {
             }
         }
     }
+
+    //pentru a nu porni meniul , in cazul in care s-a facut logout si se da inapoi
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, SplashActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         firebaseAuth.signInWithCredential(credential)

@@ -129,6 +129,17 @@ class FrameViewModel(private val repository: FrameRepository) : ViewModel() {
         }
     }
 
+    //searching feature
+    private val _searchedFrames = MutableLiveData<List<FrameWithImages>>()
+    val searchedFrames: LiveData<List<FrameWithImages>>
+        get() = _searchedFrames
+
+    fun searchFrames(query: String, minPrice: Double, maxPrice: Double) {
+        viewModelScope.launch {
+            val searchResult = repository.searchFramesWithImages("%$query%", minPrice, maxPrice)
+            _searchedFrames.postValue(searchResult.value)
+        }
+    }
 
 
 }

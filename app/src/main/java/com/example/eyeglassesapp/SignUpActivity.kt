@@ -136,7 +136,7 @@ class SignUpActivity : AppCompatActivity() {
         }
 
     }
-    // Function to validate username
+    // Function to validate username - contine cel putin o litera
     private fun validateUsername(username: String): Boolean {
         return username.length >= 5 && username.matches(Regex(".*[a-zA-Z].*"))
     }
@@ -146,7 +146,7 @@ class SignUpActivity : AppCompatActivity() {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 
-    // Function to validate password
+    // Function to validate password - cel putin o litera si cel putin o cifra
     private fun isValidPassword(password: String, confirmPassword: String): Boolean {
         return password.length >= 8 && password.matches(Regex(".*[a-zA-Z].*")) && password.matches(
             Regex(".*\\d.*")

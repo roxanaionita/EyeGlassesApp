@@ -34,4 +34,5 @@ class CartElementRepository(private val cartElementDao: CartElementDao) {
         Log.d("CartRepository", "Total cart item count for user $userId: $count")
         return count ?: 0
     }
+
 }

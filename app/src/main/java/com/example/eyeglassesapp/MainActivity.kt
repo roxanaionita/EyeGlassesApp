@@ -104,12 +104,12 @@ class MainActivity : AppCompatActivity() {
 
         //REDIRECT TO HOME
         binding.homeImg.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
         }
         binding.homeText.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
         }
 
         //REDIRECT TO USER MENU/PAGE
@@ -117,11 +117,13 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, UserAccountActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
+            finish()
         }
         binding.accountText.setOnClickListener{
             val intent = Intent(this, UserAccountActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
+            finish()
         }
 
         // REDIRECT TO PAGE WITH ALL FRAMES

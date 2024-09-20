@@ -15,6 +15,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class AdminOrderAdapter(
+
+    //pentru lista de comenzi din admin, se face doar afisare
+
     private var orders: List<OrderEntity>,
     private val userRepository: UserRepository
 ) : RecyclerView.Adapter<AdminOrderAdapter.AdminOrderViewHolder>() {

@@ -57,5 +57,8 @@ class FrameRepository(private val frameDao: FrameDao) {
     suspend fun getFramesWithImagesByFaceShapeIds(faceShapeIds: List<Int>): List<FrameWithImages> {
         return frameDao.getFramesWithImagesByFaceShapeIds(faceShapeIds)
     }
+    fun searchFramesWithImages(query: String, minPrice: Double, maxPrice: Double): LiveData<List<FrameWithImages>> {
+        return frameDao.searchFramesWithImages(query, minPrice, maxPrice)
+    }
 
 }

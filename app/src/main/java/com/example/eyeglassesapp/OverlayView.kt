@@ -15,19 +15,19 @@ import com.google.mediapipe.tasks.vision.facelandmarker.FaceLandmarkerResult
 import kotlin.math.max
 import kotlin.math.min
 
-class OverlayView(context: Context?, attrs: AttributeSet?) :
+open class OverlayView(context: Context?, attrs: AttributeSet?) :
     View(context, attrs) {
 
-    private var results: FaceLandmarkerResult? = null
+    var results: FaceLandmarkerResult? = null
     private var linePaint = Paint()
     private var pointPaint = Paint()
 
     private var textPaint = Paint()
     private var boxPaint = Paint()
 
-    private var scaleFactor: Float = 1f
-    private var imageWidth: Int = 1
-    private var imageHeight: Int = 1
+    var scaleFactor: Float = 1f
+    var imageWidth: Int = 1
+    var imageHeight: Int = 1
 
     init {
         initPaints()

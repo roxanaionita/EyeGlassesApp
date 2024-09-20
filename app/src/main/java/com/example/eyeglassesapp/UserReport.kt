@@ -9,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -115,28 +116,45 @@ class UserReport : AppCompatActivity() {
     private fun loadFramesForUser(user: UserEntity, frameFaceShapeCrossViewModel: FrameFaceShapeCrossViewModel) {
         user.firstPredictedShape?.let { firstShape ->
             frameFaceShapeCrossViewModel.getFramesForFaceShape(firstShape).observe(this) { frames ->
-                val eyeglasses = frames.filter { it.frame.category == "Eyeglasses" && it.frame.gender.toLowerCase(
-                    Locale.ROOT) == gender }
-                val sunglasses = frames.filter { it.frame.category == "Sunglasses" && it.frame.gender.toLowerCase(
-                    Locale.ROOT) == gender }
+                val eyeglasses = frames.filter { it.frame.category == "Eyeglasses" && it.frame.gender.equals(gender, true) }
+                val sunglasses = frames.filter { it.frame.category == "Sunglasses" && it.frame.gender.equals(gender, true) }
+
+                binding.firstshapeTextEyeglasses.text = "Eyeglasses for $firstShape shape"
+                binding.firstshapeTextSunglasses.text = "Sunglasses for $firstShape shape"
 
                 (binding.eyeglassesRecyclerView.adapter as MainActFrameAdapter).updateFrames(eyeglasses)
                 (binding.sunglassesRecyclerView.adapter as MainActFrameAdapter).updateFrames(sunglasses)
             }
         }
 
-        user.secondPredictedShape?.let { secondShape ->
-            frameFaceShapeCrossViewModel.getFramesForFaceShape(secondShape).observe(this) { frames ->
-                val eyeglasses = frames.filter { it.frame.category == "Eyeglasses" && it.frame.gender.toLowerCase(
-                    Locale.ROOT) == gender }
-                val sunglasses = frames.filter { it.frame.category == "Sunglasses" && it.frame.gender.toLowerCase(
-                    Locale.ROOT) == gender  }
+        if (user.secondPredictedShape != null) {
+            user.secondPredictedShape?.let { secondShape ->
+                frameFaceShapeCrossViewModel.getFramesForFaceShape(secondShape).observe(this) { frames ->
+                    val eyeglasses = frames.filter { it.frame.category == "Eyeglasses" && it.frame.gender.equals(gender, true) }
+                    val sunglasses = frames.filter { it.frame.category == "Sunglasses" && it.frame.gender.equals(gender, true) }
 
-                (binding.eyeglasses2RecyclerView.adapter as MainActFrameAdapter).updateFrames(eyeglasses)
-                (binding.sunglasses2RecyclerView.adapter as MainActFrameAdapter).updateFrames(sunglasses)
+                    binding.secondshapeTextEyeglasses.text = "Eyeglasses for $secondShape shape"
+                    binding.secondshapeTextSunglasses.text = "Sunglasses for $secondShape shape"
+
+                    (binding.eyeglasses2RecyclerView.adapter as MainActFrameAdapter).updateFrames(eyeglasses)
+                    (binding.sunglasses2RecyclerView.adapter as MainActFrameAdapter).updateFrames(sunglasses)
+
+                    // Make sure the views are visible
+                    binding.secondshapeTextEyeglasses.visibility = View.VISIBLE
+                    binding.secondshapeTextSunglasses.visibility = View.VISIBLE
+                    binding.eyeglasses2RecyclerView.visibility = View.VISIBLE
+                    binding.sunglasses2RecyclerView.visibility = View.VISIBLE
+                }
             }
+        } else {
+            // Hide the views if the second shape is not available
+            binding.secondshapeTextEyeglasses.visibility = View.GONE
+            binding.secondshapeTextSunglasses.visibility = View.GONE
+            binding.eyeglasses2RecyclerView.visibility = View.GONE
+            binding.sunglasses2RecyclerView.visibility = View.GONE
         }
     }
+
 }
 
 

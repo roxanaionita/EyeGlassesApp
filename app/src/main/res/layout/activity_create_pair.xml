@@ -325,28 +325,62 @@
                         android:layout_marginLeft="5dp"/>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/details_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
 
-                <TextView
-                    android:id="@+id/info_lentile_standard"
+                    <TextView
+                        android:id="@+id/see_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See details"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/info_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Oftalmic standard lenses - commonly used in eyeglasses for correcting vision, suitable for everyday use."
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:id="@+id/info_lentile_polarizate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Polarized lenses - designed to reduce glare from reflective surfaces, providing enhanced visual comfort"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:id="@+id/info_lentile_antiref"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Anti-reflective coated lenses - minimize reflections and glare and reducing eye strain, especially for artificial lighting or screens."
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"/>
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/info_lentile_standard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Oftalmic standard lenses - commonly used in eyeglasses for correcting vision, suitable for everyday use."
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/info_lentile_polarizate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Polarized lenses - designed to reduce glare from reflective surfaces, providing enhanced visual comfort"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/info_lentile_antiref"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Anti-reflective coated lenses - minimize reflections and glare and reducing eye strain, especially for artificial lighting or screens."
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -395,21 +429,53 @@
                         android:layout_marginLeft="10dp"/>
 
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/details_layout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
 
-                <TextView
-                    android:id="@+id/info_material_plastic"
+                    <TextView
+                        android:id="@+id/see_details2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See details"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/info_layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Plastic lenses are lightweight and durable, making them a popular choice for eyewear due to their comfort and impact resistance."
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"/>
-                <TextView
-                    android:id="@+id/info_material_sticla"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mineral glass lenses offer exceptional optical clarity and scratch resistance, making them a premium choice for eyewear."
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"/>
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/info_material_plastic"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Plastic lenses are lightweight and durable, making them a popular choice for eyewear due to their comfort and impact resistance."
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"/>
+                    <TextView
+                        android:id="@+id/info_material_sticla"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mineral glass lenses offer exceptional optical clarity and scratch resistance, making them a premium choice for eyewear."
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -459,15 +525,46 @@
                         android:layout_marginLeft="10dp"/>
 
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/info_pc_filter"
+                <LinearLayout
+                    android:id="@+id/details_layout3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="PC filter lenses help reduce exposure to harmful blue light emitted from screens, promoting eye comfort"
-                    android:layout_marginTop="5dp"
-                    android:textSize="15sp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
 
+                    <TextView
+                        android:id="@+id/see_details3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See details"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/info_layout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/info_pc_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="PC filter lenses help reduce exposure to harmful blue light emitted from screens, promoting eye comfort"
+                        android:layout_marginTop="5dp"
+                        android:textSize="15sp"/>
+                </LinearLayout>
             </LinearLayout>
 
 
@@ -517,15 +614,47 @@
                         android:layout_marginLeft="10dp"/>
 
                 </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/info_uv_filter"
+                <LinearLayout
+                    android:id="@+id/details_layout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="UV filter lenses block harmful ultraviolet (UV) rays, offering eye protection against sun damage and related risks."
-                    android:textSize="15sp"/>
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/see_details4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="See details"
+                        android:textColor="@android:color/black"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/arrow4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_keyboard_arrow_down_24"
+                        android:layout_marginStart="8dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/info_layout4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:id="@+id/info_uv_filter"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="UV filter lenses block harmful ultraviolet (UV) rays, offering eye protection against sun damage and related risks."
+                        android:textSize="15sp"/>
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -660,7 +789,19 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="40dp"
+
+                />
+            <Button
+                android:id="@+id/stream_redirect"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Live Stream"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+
+
                 />
 
         </LinearLayout>

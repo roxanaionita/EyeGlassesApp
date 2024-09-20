@@ -1,5 +1,6 @@
 package com.example.eyeglassesapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -121,6 +122,8 @@ class CartActivity : AppCompatActivity() {
             onSubmitButtonClicked()
         }
         binding.arrowBack.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
             finish()
         }
 

@@ -16,6 +16,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class Admin_UsersPage : AppCompatActivity() {
+
+    //toti userii - lista
+    //dupa click pe user - UserInfoPage
+
     private lateinit var binding: ActivityAdminUsersPageBinding
     private lateinit var userAdapter: UserAdapter
     private val DELETE_USER_REQUEST_CODE = 100

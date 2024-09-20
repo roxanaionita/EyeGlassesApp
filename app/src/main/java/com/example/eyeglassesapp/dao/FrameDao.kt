@@ -74,5 +74,8 @@ interface FrameDao {
     @Query("SELECT * FROM frames WHERE frame_id IN (SELECT frame_id FROM frame_face_shape_cross WHERE face_shape_id IN (:faceShapeIds))")
     suspend fun getFramesWithImagesByFaceShapeIds(faceShapeIds: List<Int>): List<FrameWithImages>
 
+    @Transaction
+    @Query("SELECT * FROM frames WHERE (brand LIKE :query OR model LIKE :query OR colour LIKE :query) AND price BETWEEN :minPrice AND :maxPrice")
+    fun searchFramesWithImages(query: String, minPrice: Double, maxPrice: Double): LiveData<List<FrameWithImages>>
 
 }

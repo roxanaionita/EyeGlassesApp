@@ -125,6 +125,8 @@ dependencies {
     implementation ("org.tensorflow:tensorflow-lite-task-vision:0.2.0")
 
     implementation ("com.google.mediapipe:tasks-vision:0.10.9")
+//    implementation ("com.google.mediapipe:solutions-vision:0.8.9")
+
 //    implementation("io.coil-kt:coil:2.6.0")
     // Coil for image loading
     implementation ("io.coil-kt:coil:2.2.0")

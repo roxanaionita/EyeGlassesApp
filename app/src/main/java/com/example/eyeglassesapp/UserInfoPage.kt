@@ -63,6 +63,10 @@ class UserInfoPage : AppCompatActivity() {
         // Initialize RECYCLER VIEW
         val recyclerView: RecyclerView = findViewById(R.id.orders_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        // ITEM SPACING USING RESOURCE DIMENS XML FILE
+        val itemDecoration = VerticalSpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.recycler_view_spacing))
+        recyclerView.addItemDecoration(itemDecoration)
+
 
         val orders: MutableList<OrderEntity> = mutableListOf()
         orderAdapter = AdminUserOrdersAdapter(orders, orderViewModel, this)
@@ -181,6 +185,20 @@ class UserInfoPage : AppCompatActivity() {
         } else {
             // Placeholder
             imageView.setImageResource(R.drawable.default_image_placeholder)
+        }
+    }
+
+    private class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
+        RecyclerView.ItemDecoration() {
+
+        override fun getItemOffsets(
+            outRect: android.graphics.Rect,
+            view: android.view.View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.bottom = verticalSpaceHeight
         }
     }
 

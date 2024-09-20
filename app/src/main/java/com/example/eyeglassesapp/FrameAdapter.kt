@@ -72,9 +72,5 @@ class FrameAdapter(private var frames: List<FrameWithImages>) : RecyclerView.Ada
     }
 
 
-
-
-
-
 }
 

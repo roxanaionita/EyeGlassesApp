@@ -27,10 +27,19 @@
 
     <Button
         android:id="@+id/btnCapture"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Select Image"
+        android:layout_above="@+id/btnCaptureNow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:text="Select Image" />
+
+    <Button
+        android:id="@+id/btnCaptureNow"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"/>
+        android:layout_marginBottom="30dp"
+        android:text="Take Photo" />
 </RelativeLayout>

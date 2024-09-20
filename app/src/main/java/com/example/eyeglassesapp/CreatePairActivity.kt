@@ -56,6 +56,8 @@ import android.content.ContentValues
 import android.os.Build
 import android.provider.MediaStore
 import android.provider.Settings
+import android.widget.ImageView
+import android.widget.LinearLayout
 import com.example.eyeglassesapp.ViewModels.CartElementViewModel
 
 
@@ -95,6 +97,31 @@ class CreatePairActivity : AppCompatActivity() {
     private var lastLensId : Int? = null
     private var finalPairPrice : Double = 0.0
 
+    // info about the lens
+    private lateinit var detailsLayout: LinearLayout
+    private lateinit var infoLayout: LinearLayout
+    private lateinit var seeDetails: TextView
+    private lateinit var arrow: ImageView
+    private var isInfoVisible = false
+
+    private lateinit var detailsLayout2: LinearLayout
+    private lateinit var infoLayout2: LinearLayout
+    private lateinit var seeDetails2: TextView
+    private lateinit var arrow2: ImageView
+    private var isInfoVisible2 = false
+
+    private lateinit var detailsLayout3: LinearLayout
+    private lateinit var infoLayout3: LinearLayout
+    private lateinit var seeDetails3: TextView
+    private lateinit var arrow3: ImageView
+    private var isInfoVisible3 = false
+
+    private lateinit var detailsLayout4: LinearLayout
+    private lateinit var infoLayout4: LinearLayout
+    private lateinit var seeDetails4: TextView
+    private lateinit var arrow4: ImageView
+    private var isInfoVisible4 = false
+
     companion object {
         private const val REQUEST_CODE_PERMISSIONS = 10
     }
@@ -104,6 +131,8 @@ class CreatePairActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityCreatePairBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        observeCartItemCount()
 
 
         //GESTIONARE EXTRAGERE USER ID
@@ -115,12 +144,15 @@ class CreatePairActivity : AppCompatActivity() {
 
                 // debug
                 Log.d("UserIdDebug", "User id: $userId")
-                cartElementViewModel.fetchTotalCartItemCount(userId)
+//                cartElementViewModel.fetchTotalCartItemCount(userId)
+//
+//                cartElementViewModel.totalCartItemCount.observe(this) { count ->
+//                    Log.d("CartActivity", "Observed cart item count: $count")
+//                    findViewById<TextView>(R.id.cart_item_count).text = count.toString()
+//                }
+                refreshCartItemCount(userId)
+//                observeCartItemCount()
 
-                cartElementViewModel.totalCartItemCount.observe(this) { count ->
-                    Log.d("CartActivity", "Observed cart item count: $count")
-                    findViewById<TextView>(R.id.cart_item_count).text = count.toString()
-                }
 
             } else {
                 // User ID nu a putut fi obținut
@@ -146,6 +178,7 @@ class CreatePairActivity : AppCompatActivity() {
                         if (frameWithImages.frame.category == "Sunglasses") {
                             binding.alegereFiltruPc.visibility = View.GONE
                             binding.pcFilter.visibility = View.GONE
+                            binding.detailsLayout3.visibility = View.GONE
                             binding.noPcFilter.visibility = View.GONE
                             binding.infoPcFilter.visibility = View.GONE
                             isPCFilterSelected = true
@@ -199,9 +232,77 @@ class CreatePairActivity : AppCompatActivity() {
                 showPermissionDialog(savedImagePath)
             }
         }
+        binding.streamRedirect.setOnClickListener {
+            startTryOnLiveActivity(savedImagePath)
+        }
 
 
             // GESTIONARE EXTRAGERE LENTILA DIN BAZA DE DATE IN FUNCTIE DE USER INPUT
+
+        // SEE DETAILS ARROWS
+        // see details 1
+        detailsLayout = findViewById(R.id.details_layout)
+        infoLayout = findViewById(R.id.info_layout)
+        seeDetails = findViewById(R.id.see_details)
+        arrow = findViewById(R.id.arrow)
+
+        val toggleInfoVisibility = View.OnClickListener {
+            isInfoVisible = !isInfoVisible
+            infoLayout.visibility = if (isInfoVisible) View.VISIBLE else View.GONE
+            arrow.setImageResource(if (isInfoVisible) R.drawable.baseline_keyboard_arrow_up_24 else R.drawable.baseline_keyboard_arrow_down_24)
+            seeDetails.text = if (isInfoVisible) "Hide details" else "See details"
+        }
+
+        seeDetails.setOnClickListener(toggleInfoVisibility)
+        arrow.setOnClickListener(toggleInfoVisibility)
+
+        // see details 2
+        detailsLayout2 = findViewById(R.id.details_layout2)
+        infoLayout2 = findViewById(R.id.info_layout2)
+        seeDetails2 = findViewById(R.id.see_details2)
+        arrow2 = findViewById(R.id.arrow2)
+
+        val toggleInfoVisibility2 = View.OnClickListener {
+            isInfoVisible2 = !isInfoVisible2
+            infoLayout2.visibility = if (isInfoVisible2) View.VISIBLE else View.GONE
+            arrow2.setImageResource(if (isInfoVisible2) R.drawable.baseline_keyboard_arrow_up_24 else R.drawable.baseline_keyboard_arrow_down_24)
+            seeDetails2.text = if (isInfoVisible2) "Hide details" else "See details"
+        }
+
+        seeDetails2.setOnClickListener(toggleInfoVisibility2)
+        arrow2.setOnClickListener(toggleInfoVisibility2)
+
+        // see details 3
+        detailsLayout3 = findViewById(R.id.details_layout3)
+        infoLayout3 = findViewById(R.id.info_layout3)
+        seeDetails3 = findViewById(R.id.see_details3)
+        arrow3 = findViewById(R.id.arrow3)
+
+        val toggleInfoVisibility3 = View.OnClickListener {
+            isInfoVisible3 = !isInfoVisible3
+            infoLayout3.visibility = if (isInfoVisible3) View.VISIBLE else View.GONE
+            arrow3.setImageResource(if (isInfoVisible3) R.drawable.baseline_keyboard_arrow_up_24 else R.drawable.baseline_keyboard_arrow_down_24)
+            seeDetails3.text = if (isInfoVisible3) "Hide details" else "See details"
+        }
+
+        seeDetails3.setOnClickListener(toggleInfoVisibility3)
+        arrow3.setOnClickListener(toggleInfoVisibility3)
+
+        // see details 4
+        detailsLayout4 = findViewById(R.id.details_layout4)
+        infoLayout4 = findViewById(R.id.info_layout4)
+        seeDetails4 = findViewById(R.id.see_details4)
+        arrow4 = findViewById(R.id.arrow4)
+
+        val toggleInfoVisibility4 = View.OnClickListener {
+            isInfoVisible4 = !isInfoVisible4
+            infoLayout4.visibility = if (isInfoVisible4) View.VISIBLE else View.GONE
+            arrow4.setImageResource(if (isInfoVisible4) R.drawable.baseline_keyboard_arrow_up_24 else R.drawable.baseline_keyboard_arrow_down_24)
+            seeDetails4.text = if (isInfoVisible4) "Hide details" else "See details"
+        }
+
+        seeDetails4.setOnClickListener(toggleInfoVisibility4)
+        arrow4.setOnClickListener(toggleInfoVisibility4)
 
             // select type
             binding.oftalmicLens.setOnClickListener {
@@ -338,10 +439,13 @@ class CreatePairActivity : AppCompatActivity() {
 
         //GESTIONARE CREARE OBIECT PERECHE ON ADD TO CART CLICKED
         binding.addToCart.setOnClickListener{
+
             // Check if all options are selected
             if (selectedLensType != null && selectedMaterial != null && isUVFilterSelected && isPCFilterSelected) {
                 // All options are selected, proceed with observing lens ID and inserting pair
+
                 observeLensIdAndInsertPair()
+
 
             } else {
                 // Not all options are selected, show an alert dialog
@@ -353,11 +457,15 @@ class CreatePairActivity : AppCompatActivity() {
             val intent = Intent(this, CartActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
+//            finish()
+
         }
         binding.cartItemCount.setOnClickListener{
             val intent = Intent(this, CartActivity::class.java)
             intent.putExtra("userId", userId)
             startActivity(intent)
+//            finish()
+
         }
         binding.backButton.setOnClickListener{
             finish()
@@ -365,6 +473,17 @@ class CreatePairActivity : AppCompatActivity() {
 
 
 
+    }
+    private fun observeCartItemCount() {
+        cartElementViewModel.totalCartItemCount.observe(this) { count ->
+            Log.d("CartActivity", "Observed cart item count: $count")
+            findViewById<TextView>(R.id.cart_item_count).text = count.toString()
+        }
+    }
+
+
+    private fun refreshCartItemCount(userId: Int) {
+        cartElementViewModel.fetchTotalCartItemCount(userId)
     }
     private fun allPermissionsGranted(): Boolean {
         return ContextCompat.checkSelfPermission(
@@ -462,7 +581,16 @@ class CreatePairActivity : AppCompatActivity() {
             Toast.makeText(this, "Image not transformed yet", Toast.LENGTH_SHORT).show()
         }
     }
-
+    private fun startTryOnLiveActivity(imagePath: String?) {
+        if (imagePath != null) {
+            val intent = Intent(this, TryOnLive::class.java).apply {
+                putExtra("imagePath", imagePath)
+            }
+            startActivity(intent)
+        } else {
+            Toast.makeText(this, "Image not transformed yet", Toast.LENGTH_SHORT).show()
+        }
+    }
     private fun observeLensIdAndInsertPair() {
         lensViewModel.getLensId(selectedLensType!!, selectedMaterial!!, uvFilterOption, pcFilterOption)
             .observe(this, Observer { lensId ->
@@ -510,16 +638,13 @@ class CreatePairActivity : AppCompatActivity() {
                 if (insertedPairId != null) {
                     Log.d("PairInsertion", "Inserted Pair ID: $insertedPairId")
                     Toast.makeText(this, "Pair added to cart successfully", Toast.LENGTH_SHORT).show()
+                    refreshCartItemCount(userId)
+//                    observeCartItemCount()
                 } else {
                     Toast.makeText(this, "Failed to add pair to cart", Toast.LENGTH_SHORT).show()
                 }
             })
-            cartElementViewModel.fetchTotalCartItemCount(userId)
 
-            cartElementViewModel.totalCartItemCount.observe(this) { count ->
-                Log.d("CartActivity", "Observed cart item count: $count")
-                findViewById<TextView>(R.id.cart_item_count).text = count.toString()
-            }
         } ?: run {
             Log.e("LensIdDebug", "LensId is null")
         }
@@ -547,7 +672,7 @@ class CreatePairActivity : AppCompatActivity() {
                 }
             }
         } else {
-            Toast.makeText(this, "Selectați toate opțiunile.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Selectați toate opțiunile.", Toast.LENGTH_SHORT).show()
         }
     }
 

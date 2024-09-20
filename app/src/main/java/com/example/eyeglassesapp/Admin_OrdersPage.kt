@@ -55,6 +55,11 @@ class Admin_OrdersPage : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adminOrderAdapter
 
+        // ITEM SPACING USING RESOURCE DIMENS XML FILE
+        val itemDecoration = VerticalSpaceItemDecoration(resources.getDimensionPixelSize(R.dimen.recycler_view_spacing))
+        binding.recviewOrders.addItemDecoration(itemDecoration)
+
+
         // Fetch all orders from ViewModel
         orderViewModel.getAllOrders()
         // Observe allOrders LiveData
@@ -74,5 +79,18 @@ class Admin_OrdersPage : AppCompatActivity() {
         }
 
 
+    }
+    private class VerticalSpaceItemDecoration(private val verticalSpaceHeight: Int) :
+        RecyclerView.ItemDecoration() {
+
+        override fun getItemOffsets(
+            outRect: android.graphics.Rect,
+            view: android.view.View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.bottom = verticalSpaceHeight
+        }
     }
 }

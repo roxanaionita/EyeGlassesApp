@@ -9,6 +9,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -20,6 +21,15 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash)
+
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                //  finish to close the application
+                finish()
+
+
+            }
+        })
 
         val loginButton: Button = findViewById(R.id.splash_login_redirect)
         val signupButton: Button = findViewById(R.id.splash_signup_redirect)
@@ -41,6 +51,13 @@ class SplashActivity : AppCompatActivity() {
 //            startActivity(intent)
 //        }
     }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+////        val intent = Intent(this, SplashActivity::class.java)
+////        startActivity(intent)
+////        finish()
+//
+//    }
 }
 
 
